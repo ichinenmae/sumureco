@@ -12,12 +12,25 @@ header {
     margin-bottom: 20px;
 }
 
+/* タイトル画像のスタイル */
 .title-image {
-    max-width: 100%; /* 画像の幅を親要素に合わせる */
-    height: auto;    /* 縦横比を維持 */
-    display: block;  /* 画像を中央揃えするためのブロック要素化 */
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%; /* 親要素を超えないように */
+    height: auto;    /* 高さを自動調整 */
+    display: block;  /* ブロック要素にして余分な隙間を排除 */
+    margin: 0 auto;  /* センタリング */
 }
+
+/* 全体の幅調整 */
+body, html {
+    overflow-x: hidden; /* 横スクロールを防止 */
+    box-sizing: border-box; /* 幅計算を安定させる */
+}
+
+* {
+    box-sizing: inherit; /* すべての要素に適用 */
+}
+
 
 form {
     background-color: #545454; /* フォーム部分をグレー系に */
