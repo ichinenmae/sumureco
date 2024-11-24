@@ -1,28 +1,91 @@
+/* ベース設定 */
 body {
-    font-size: 16px; /* デフォルトの文字サイズ */
-    line-height: 1.5; /* 読みやすい行間 */
+    font-family: 'Arial', sans-serif;
+    background-color: #f36c3d; /* 背景をオレンジ系に */
+    color: #ffffff;
     margin: 0;
     padding: 0;
 }
 
 h1 {
-    font-size: 2em; /* 相対単位で拡大縮小が可能 */
+    font-size: 2.5em;
+    text-align: center;
+    margin-top: 20px;
 }
 
-p {
-    font-size: 1em; /* 見やすいサイズ */
+form {
+    background-color: #222a35; /* フォーム部分を暗い青系に */
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    font-size: 1.1em;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: calc(100% - 20px); /* 左右に10pxずつ余白を確保 */
+    padding: 10px;
+    margin: 0 auto 20px auto; /* 入力欄を中央揃えにし、下に余白を確保 */
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box; /* 余白を含めて幅を計算 */
+}
+
+button {
+    width: calc(100% - 20px); /* ボタンも左右に余白を確保 */
+    padding: 12px;
+    background-color: #4caf50; /* ボタンを緑系に */
+    color: #ffffff;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto; /* ボタンも中央揃え */
+    box-sizing: border-box; /* 幅計算を調整 */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#results {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 400px;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.result-value {
+    font-weight: bold; /* 太字にする */
+    font-size: 1.25em; /* 一回り大きいサイズ */
 }
 
 @media (max-width: 768px) {
     body {
-        font-size: 18px; /* モバイルでは少し大きめに */
+        font-size: 18px;
     }
 
     h1 {
-        font-size: 2.5em; /* タイトルを大きく */
+        font-size: 2em;
     }
 
-    p {
-        font-size: 1.2em; /* テキストも読みやすく */
+    form {
+        padding: 15px; /* モバイル向けにフォームの内側余白を小さく調整 */
+    }
+
+    input, button {
+        width: calc(100% - 10px); /* モバイル向けに左右余白を縮小 */
     }
 }

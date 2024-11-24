@@ -1,3 +1,4 @@
+
 document.getElementById('deliveryForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const startTime = document.getElementById('startTime').value;
@@ -23,16 +24,18 @@ document.getElementById('deliveryForm').addEventListener('submit', (e) => {
     const totalSalesPerHour = totalSales / workHours;
     const salesPerDelivery = totalSales / deliveries;
 
-    document.getElementById('results').innerHTML = `
-        <p>稼働時間: ${workHours.toFixed(2)} 時間</p>
-        <p>配達報酬のみ 時間あたり: ${baseRewardPerHour.toFixed(2)} 円</p>
-        <p>合計売上 時間あたり: ${totalSalesPerHour.toFixed(2)} 円</p>
-        <p>1件あたり売上: ${salesPerDelivery.toFixed(2)} 円</p>
-        <hr>
-        <h3>詳細</h3>
-        <p>配達報酬: ${baseReward} 円</p>
-        <p>プロモーション: ${promotion} 円</p>
-        <p>チップ: ${tip} 円</p>
-        <p>合計売上: ${totalSales} 円</p>
-    `;
+document.getElementById('results').innerHTML = `
+    <p>稼働時間: <span class="result-value">${workHours.toFixed(2)}</span> 時間</p>
+    <p>配達報酬のみ 時間あたり: <span class="result-value">${baseRewardPerHour.toFixed(2)}</span> 円</p>
+    <p>合計売上 時間あたり: <span class="result-value">${totalSalesPerHour.toFixed(2)}</span> 円</p>
+    <p>1件あたり売上: <span class="result-value">${salesPerDelivery.toFixed(2)}</span> 円</p>
+    <hr>
+    <h3>詳細</h3>
+    <p>配達報酬: <span class="result-value">${baseReward}</span> 円</p>
+    <p>プロモーション: <span class="result-value">${promotion}</span> 円</p>
+    <p>チップ: <span class="result-value">${tip}</span> 円</p>
+    <p>合計売上: <span class="result-value">${totalSales}</span> 円</p>
+`;
+
 });
+    
