@@ -1,20 +1,26 @@
 /* ベース設定 */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f36c3d; /* 背景をオレンジ系に */
+    background-color: #ffffff; 
     color: #ffffff;
     margin: 0;
     padding: 0;
 }
 
-h1 {
-    font-size: 2.5em;
+header {
     text-align: center;
-    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title-image {
+    max-width: 100%; /* 画像の幅を親要素に合わせる */
+    height: auto;    /* 縦横比を維持 */
+    display: block;  /* 画像を中央揃えするためのブロック要素化 */
+    margin: 0 auto;
 }
 
 form {
-    background-color: #222a35; /* フォーム部分を暗い青系に */
+    background-color: #545454; /* フォーム部分をグレー系に */
     padding: 20px;
     margin: 20px auto;
     border-radius: 12px;
@@ -34,7 +40,7 @@ input {
     margin: 0 auto 20px auto; /* 入力欄を中央揃えにし、下に余白を確保 */
     border: none;
     border-radius: 6px;
-    font-size: 1em;
+    font-size: 1.25em;
     box-sizing: border-box; /* 余白を含めて幅を計算 */
 }
 
@@ -44,6 +50,7 @@ button {
     background-color: #4caf50; /* ボタンを緑系に */
     color: #ffffff;
     font-size: 1.2em;
+    font-weight: bold; /* 太字にする */
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -75,10 +82,6 @@ button:hover {
 @media (max-width: 768px) {
     body {
         font-size: 18px;
-    }
-
-    h1 {
-        font-size: 2em;
     }
 
     form {
