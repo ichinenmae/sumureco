@@ -86,6 +86,7 @@ label {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     font-size: 1em; /* 全体のフォントサイズを基本値に */
     color: #545454; /* 全体の文字色を統一 */
+    line-height: 1.5;
 }
 
 #results p {
