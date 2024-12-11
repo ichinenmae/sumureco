@@ -86,12 +86,13 @@ label {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     font-size: 1em; /* 全体のフォントサイズを基本値に */
     color: #545454; /* 全体の文字色を統一 */
-    line-height: 1.5;
+
 }
 
 #results p {
     text-align: right;
     font-size: 1em; /* 結果の各行を統一 */
+    line-height: 1.5;
 }
 
 .result-value {
@@ -103,6 +104,7 @@ h3, h4 {
     font-size: 1em; /* 見出しのサイズを統一 */
     font-weight: bold;
     color: #333333;
+    line-height: 1.5;
     margin-bottom: 10px;
 }
 
