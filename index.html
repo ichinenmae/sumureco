@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>スムレコ 時間給計算アプリ</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,18 +11,43 @@
         <img src="title-image.png" alt="スムレコ" class="title-image">
     </header>
     <form id="deliveryForm">
-        <label for="startTime">開始時間</label>
-        <input type="time" id="startTime" required>
-        <label for="endTime">終了時間</label>
-        <input type="time" id="endTime" required>
-        <label for="deliveries">配達件数</label>
-        <input type="number" id="deliveries" required>
-        <label for="baseReward">配達報酬</label>
-        <input type="number" id="baseReward" required>
-        <label for="promotion">プロモーション</label>
-        <input type="number" id="promotion" required>
-        <label for="tip">チップ</label>
-        <input type="number" id="tip" required>
+    
+        <!-- 時間の入力フォーム -->
+        <div class="form-section">
+        	<label for="startTime">開始時間</label>
+        	<input type="time" id="startTime" required>
+        
+        	<label for="endTime">終了時間</label>
+        	<input type="time" id="endTime" required>
+		</div>
+
+        <!-- Uber セクション -->
+
+        <div class="form-section">
+        <h3>Uber</h3>
+        <label for="uberDeliveries">配達件数</label>
+        <input type="number" id="uberDeliveries" >
+        <label for="uberBaseReward">配達報酬</label>
+        <input type="number" id="uberBaseReward" >
+        <label for="uberPromotion">プロモーション</label>
+        <input type="number" id="uberPromotion" >
+        <label for="uberTip">チップ</label>
+        <input type="number" id="uberTip" >
+		</div>
+
+        <!-- Menu セクション -->
+        <div class="form-section">
+        <h3>menu</h3>
+        <label for="menuDeliveries">配達件数</label>
+        <input type="number" id="menuDeliveries" >
+        <label for="menuBaseReward">配達報酬</label>
+        <input type="number" id="menuBaseReward" >
+        <label for="menuPromotion">プロモーション</label>
+        <input type="number" id="menuPromotion" >
+        <label for="menuTip">チップ</label>
+        <input type="number" id="menuTip" >
+		</div>
+
         <button type="submit">計算</button>
     </form>
     <div id="results"></div>

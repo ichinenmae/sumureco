@@ -1,39 +1,29 @@
-/* ベース設定 */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #ffffff; 
-    color: #ffffff;
+/* グローバルリセット */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 20px;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    color: #545454;
+    line-height: 1.5;
 }
 
 /* タイトル画像のスタイル */
 .title-image {
     width: 100%;
-    max-width: 100%; /* 親要素を超えないように */
-    height: auto;    /* 高さを自動調整 */
-    display: block;  /* ブロック要素にして余分な隙間を排除 */
-    margin: 0 auto;  /* センタリング */
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
-/* 全体の幅調整 */
-body, html {
-    overflow-x: hidden; /* 横スクロールを防止 */
-    box-sizing: border-box; /* 幅計算を安定させる */
-}
-
-* {
-    box-sizing: inherit; /* すべての要素に適用 */
-}
-
-
+/* フォーム設定 */
 form {
-    background-color: #545454; /* フォーム部分をグレー系に */
+    background-color: #545454;
     padding: 20px;
     margin: 20px auto;
     border-radius: 12px;
@@ -41,67 +31,118 @@ form {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-label {
-    font-size: 1.1em;
-    display: block;
-    margin-bottom: 8px;
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
 }
 
 input {
-    width: calc(100% - 20px); /* 左右に10pxずつ余白を確保 */
-    padding: 10px;
-    margin: 0 auto 20px auto; /* 入力欄を中央揃えにし、下に余白を確保 */
-    border: none;
-    border-radius: 6px;
-    font-size: 1.25em;
-    box-sizing: border-box; /* 余白を含めて幅を計算 */
+    text-align: right;
 }
 
 button {
-    width: calc(100% - 20px); /* ボタンも左右に余白を確保 */
-    padding: 12px;
-    background-color: #4caf50; /* ボタンを緑系に */
-    color: #ffffff;
-    font-size: 1.2em;
-    font-weight: bold; /* 太字にする */
+    width: 60%; /* 親要素の80%の横幅 */
+    padding: 10px;
     border: none;
     border-radius: 6px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #4caf50; /* 緑色 */
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 0 auto; /* ボタンも中央揃え */
-    box-sizing: border-box; /* 幅計算を調整 */
+    margin: 0 auto; /* 横中央揃え */
+    display: block; /* ブロック要素として扱う */
 }
 
 button:hover {
     background-color: #45a049;
 }
 
+label {
+    font-size: 1em;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-section {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+/* 結果表示設定 */
 #results {
     background-color: #ffffff;
-    color: #000000;
     padding: 20px;
     margin: 20px auto;
     border-radius: 12px;
     max-width: 400px;
-    text-align: left;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 1em; /* 全体のフォントサイズを基本値に */
+    color: #545454; /* 全体の文字色を統一 */
+}
+
+#results p {
+    text-align: right;
+    font-size: 1em; /* 結果の各行を統一 */
 }
 
 .result-value {
-    font-weight: bold; /* 太字にする */
-    font-size: 1.25em; /* 一回り大きいサイズ */
+    font-weight: bold;
+    font-size: 1.25em; /* 結果の強調表示 */
 }
 
+h3, h4 {
+    font-size: 1em; /* 見出しのサイズを統一 */
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+/* 各社セクション */
+.company-section {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    font-size: 1em; /* 他と統一 */
+    font-weight: normal; /* 太字を解除 */
+    color: inherit; /* 色を継承 */
+}
+
+.company-section h4 {
+    font-size: 1em; /* 各社セクションの見出しも統一 */
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.integer-part {
+    font-weight: bold;
+}
+
+.decimal-part {
+    font-size: 0.75em;
+    font-weight: normal;
+    color: #919191;
+}
+
+/* メディアクエリ */
 @media (max-width: 768px) {
     body {
         font-size: 18px;
     }
 
     form {
-        padding: 15px; /* モバイル向けにフォームの内側余白を小さく調整 */
+        padding: 15px;
     }
 
     input, button {
-        width: calc(100% - 10px); /* モバイル向けに左右余白を縮小 */
+        width: calc(100% - 10px);
     }
 }
