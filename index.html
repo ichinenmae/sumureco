@@ -17,6 +17,7 @@
             background-color: #ffffff;
             color: #545454;
             line-height: 1.5;
+            padding-top: 60px; /* ナビゲーションバーの高さ分余白を追加 */
         }
 
         /* タイトル画像のスタイル */
@@ -26,12 +27,8 @@
             height: auto;
             display: block;
             margin: 0 auto;
-            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
-            padding: 20px;
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            color: #545454;
+            background-color: #f5f5f5;
+            padding: 10px;
         }
 
         /* フォーム設定 */
@@ -227,33 +224,38 @@
         /* ナビゲーションボタン */
         .nav-buttons {
             position: fixed;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 8px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         .nav-btn {
-            width: 60px;
-            height: 50px;
+            width: 80px;
+            height: 40px;
             border: none;
-            border-radius: 8px;
-            font-size: 0.7em;
+            border-radius: 6px;
+            font-size: 0.75em;
             font-weight: bold;
             color: white;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             padding: 4px;
             line-height: 1.1;
         }
 
         .nav-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .nav-btn:active {
@@ -267,13 +269,12 @@
         .nav-menu { background-color: #FF8C00; }
         .nav-wolt { background-color: #00BFFF; }
         .nav-calc { background-color: #4caf50; }
-        .nav-result { background-color: #000000; }
 
         /* メディアクエリ */
         @media (max-width: 768px) {
             body {
                 font-size: 18px;
-                padding-right: 80px;
+                padding-top: 70px; /* モバイルでは少し高めに */
             }
 
             form {
@@ -294,46 +295,38 @@
             }
 
             .nav-buttons {
-                right: 5px;
-                gap: 5px;
+                padding: 6px;
+                gap: 4px;
             }
 
             .nav-btn {
-                width: 50px;
-                height: 40px;
-                font-size: 0.6em;
+                width: 60px;
+                height: 35px;
+                font-size: 0.65em;
             }
         }
 
         @media (max-width: 480px) {
+            body {
+                padding-top: 80px; /* 小さい画面では更に高めに */
+            }
+
             .nav-buttons {
-                position: fixed;
-                bottom: 10px;
-                right: 10px;
-                top: auto;
-                transform: none;
-                flex-direction: row;
-                flex-wrap: wrap;
-                width: calc(100% - 20px);
-                justify-content: center;
+                padding: 4px;
+                gap: 3px;
             }
 
             .nav-btn {
                 width: 45px;
-                height: 35px;
-                font-size: 0.55em;
-            }
-
-            body {
-                padding-right: 0;
-                padding-bottom: 80px;
+                height: 30px;
+                font-size: 0.6em;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="title-image">スムレコ - 配達効率計算</div>
+    <img src="title-image.png" alt="スムレコ 配達効率計算" class="title-image">
     </header>
     <form id="deliveryForm">
     
@@ -443,7 +436,6 @@
         <button type="button" class="nav-btn nav-menu" onclick="scrollToSection('menu-section')">menu</button>
         <button type="button" class="nav-btn nav-wolt" onclick="scrollToSection('wolt-section')">Wolt</button>
         <button type="button" class="nav-btn nav-calc" onclick="scrollToSection('calc-button')">計算</button>
-        <button type="button" class="nav-btn nav-result" onclick="scrollToSection('results')">結果</button>
     </div>
 
     <div id="results"></div>
@@ -453,9 +445,14 @@
         function scrollToSection(sectionId) {
             var element = document.getElementById(sectionId);
             if (element) {
-                element.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                // ナビゲーションバーの高さを考慮してオフセットを計算
+                var navHeight = document.querySelector('.nav-buttons').offsetHeight;
+                var elementPosition = element.offsetTop;
+                var offsetPosition = elementPosition - navHeight - 10; // 10pxの余白を追加
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
                 });
             }
         }
@@ -472,16 +469,11 @@
                 e.preventDefault();
                 
                 try {
-                    // デバッグ用
-                    console.log('計算開始');
-                    
                     // 稼働時間の計算
                     var startHour = parseFloat(document.getElementById('startHour').value) || 0;
                     var startMinute = parseFloat(document.getElementById('startMinute').value) || 0;
                     var endHour = parseFloat(document.getElementById('endHour').value) || 0;
                     var endMinute = parseFloat(document.getElementById('endMinute').value) || 0;
-                    
-                    console.log('時間入力:', startHour, startMinute, endHour, endMinute);
                     
                     var startTimeInMinutes = startHour * 60 + startMinute;
                     var endTimeInMinutes = endHour * 60 + endMinute;
@@ -492,7 +484,6 @@
                     }
                     
                     var workHours = workTimeInMinutes / 60;
-                    console.log('稼働時間:', workHours);
                     
                     // 各プラットフォームのデータ取得
                     var platforms = {
@@ -551,8 +542,6 @@
                         totalDeliveries += platform.deliveries;
                     }
                     
-                    console.log('合計売上:', totalSales, '合計配達:', totalDeliveries);
-                    
                     // フォーマット関数
                     function formatDecimal(number) {
                         if (isNaN(number)) number = 0;
@@ -593,20 +582,20 @@
                         }
                     }
                     
-                    console.log('結果HTML生成完了');
-                    
                     // 結果を表示
                     var resultsElement = document.getElementById('results');
                     resultsElement.innerHTML = resultsHTML;
                     resultsElement.style.display = 'block';
                     
-                    console.log('結果表示完了');
-                    
                     // スクロールを実行
                     setTimeout(function() {
-                        resultsElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
+                        var navHeight = document.querySelector('.nav-buttons').offsetHeight;
+                        var elementPosition = resultsElement.offsetTop;
+                        var offsetPosition = elementPosition - navHeight - 10;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
                         });
                     }, 100);
                     
@@ -616,101 +605,6 @@
                     if (resultsElement) {
                         resultsElement.innerHTML = '<h3>エラーが発生しました</h3><p>' + error.message + '</p>';
                     }
-                }
-            });
-        });
-    </script>document.getElementById('rocketBonus').value) || 0,
-                            tip: parseFloat(document.getElementById('rocketTip').value) || 0,
-                            className: 'rocket-section'
-                        },
-                        menu: {
-                            name: 'menu',
-                            deliveries: parseFloat(document.getElementById('menuDeliveries').value) || 0,
-                            baseReward: parseFloat(document.getElementById('menuBaseReward').value) || 0,
-                            bonus: parseFloat(document.getElementById('menuBonus').value) || 0,
-                            tip: parseFloat(document.getElementById('menuTip').value) || 0,
-                            className: 'menu-section'
-                        },
-                        wolt: {
-                            name: 'Wolt',
-                            deliveries: parseFloat(document.getElementById('woltDeliveries').value) || 0,
-                            baseReward: parseFloat(document.getElementById('woltBaseReward').value) || 0,
-                            bonus: parseFloat(document.getElementById('woltBonus').value) || 0,
-                            tip: parseFloat(document.getElementById('woltTip').value) || 0,
-                            className: 'wolt-section'
-                        }
-                    };
-                    
-                    // 全体の集計
-                    let totalSales = 0;
-                    let totalDeliveries = 0;
-                    
-                    Object.values(platforms).forEach(function(platform) {
-                        platform.totalSales = platform.baseReward + platform.bonus + platform.tip;
-                        totalSales += platform.totalSales;
-                        totalDeliveries += platform.deliveries;
-                    });
-                    
-                    console.log('合計売上:', totalSales, '合計配達:', totalDeliveries);
-                    
-                    // フォーマット関数
-                    function formatDecimal(number) {
-                        if (isNaN(number)) number = 0;
-                        var parts = number.toFixed(2).split('.');
-                        return '<span class="integer-part">' + parts[0] + '</span>.<span class="decimal-part">' + parts[1] + '</span>';
-                    }
-                    
-                    // 結果HTML生成
-                    let resultsHTML = '<h3>稼働結果</h3>';
-                    resultsHTML += '<div class="company-section">';
-                    resultsHTML += '<h4>全体サマリー</h4>';
-                    resultsHTML += '<p>合計売上: <span class="result-value">' + formatDecimal(totalSales) + '</span>　円</p>';
-                    resultsHTML += '<p>稼働時間: <span class="result-value">' + formatDecimal(workHours) + '</span>　時間</p>';
-                    resultsHTML += '<p>総配達件数: <span class="result-value">' + totalDeliveries + '</span>　件</p>';
-                    resultsHTML += '<p>時給: <span class="result-value">' + formatDecimal(workHours > 0 ? totalSales / workHours : 0) + '</span>　円/時</p>';
-                    resultsHTML += '<p>平均単価: <span class="result-value">' + formatDecimal(totalDeliveries > 0 ? totalSales / totalDeliveries : 0) + '</span>　円/件</p>';
-                    resultsHTML += '<p>配達ペース: <span class="result-value">' + formatDecimal(workHours > 0 ? totalDeliveries / workHours : 0) + '</span>　件/時</p>';
-                    resultsHTML += '</div>';
-                    
-                    // 各プラットフォームの詳細
-                    Object.entries(platforms).forEach(function([key, platform]) {
-                        if (platform.deliveries > 0 || platform.totalSales > 0) {
-                            resultsHTML += '<div class="company-section ' + platform.className + '">';
-                            resultsHTML += '<h4>' + platform.name + '</h4>';
-                            resultsHTML += '<p>売上: <span class="result-value">' + formatDecimal(platform.totalSales) + '</span>　円</p>';
-                            resultsHTML += '<p>配達件数: <span class="result-value">' + platform.deliveries + '</span>　件</p>';
-                            resultsHTML += '<p>配達報酬: <span class="result-value">' + formatDecimal(platform.baseReward) + '</span>　円</p>';
-                            resultsHTML += '<p>ボーナス: <span class="result-value">' + formatDecimal(platform.bonus) + '</span>　円</p>';
-                            
-                            if (platform.tip > 0) {
-                                resultsHTML += '<p>チップ: <span class="result-value">' + formatDecimal(platform.tip) + '</span>　円</p>';
-                            }
-                            resultsHTML += '<p>時給: <span class="result-value">' + formatDecimal(workHours > 0 ? platform.totalSales / workHours : 0) + '</span>　円/時</p>';
-                            resultsHTML += '<p>単価: <span class="result-value">' + formatDecimal(platform.deliveries > 0 ? platform.totalSales / platform.deliveries : 0) + '</span>　円/件</p>';
-                            resultsHTML += '</div>';
-                        }
-                    });
-                    
-                    console.log('結果HTML生成完了');
-                    
-                    // 結果を表示
-                    const resultsElement = document.getElementById('results');
-                    resultsElement.innerHTML = resultsHTML;
-                    resultsElement.style.display = 'block';
-                    
-                    console.log('結果表示完了');
-                    
-                    // スクロールを実行
-                    setTimeout(function() {
-                        resultsElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 100);
-                    
-                } catch (error) {
-                    console.error('エラーが発生しました:', error);
-                    document.getElementById('results').innerHTML = '<h3>エラーが発生しました</h3><p>' + error.message + '</p>';
                 }
             });
         });
