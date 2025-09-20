@@ -60,12 +60,30 @@
             margin-bottom: 15px;
         }
 
-        .time-input-group input {
+        .time-input-group input[type="time"] {
             flex: 1;
             margin-bottom: 0;
             padding: 12px;
             font-size: 1.1em;
             text-align: center;
+            background-color: #ffffff !important;
+            border: 1px solid #ddd !important;
+            color: #333333 !important;
+        }
+
+        .time-input-group input[type="time"]:focus {
+            outline: 2px solid #4caf50;
+            border-color: #4caf50 !important;
+        }
+
+        /* Webkit系ブラウザ（Chrome、Safari）の時刻入力スタイル */
+        .time-input-group input[type="time"]::-webkit-datetime-edit {
+            color: #333333;
+        }
+
+        .time-input-group input[type="time"]::-webkit-calendar-picker-indicator {
+            background-color: #ffffff;
+            color: #333333;
         }
 
         .time-input-group span {
@@ -331,7 +349,7 @@
 </head>
 <body>
     <header>
-        <img src="title-image.png" alt="スムレコ" class="title-image">
+        <img src="title-image.png" alt="スムレコ 配達効率計算" class="title-image">
     </header>
     <form id="deliveryForm">
     
