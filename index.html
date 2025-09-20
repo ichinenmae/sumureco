@@ -17,7 +17,6 @@
             background-color: #ffffff;
             color: #545454;
             line-height: 1.5;
-            padding-top: 60px; /* ナビゲーションバーの高さ分余白を追加 */
         }
 
         /* タイトル画像のスタイル */
@@ -26,7 +25,7 @@
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
+            margin: 60px auto 0; /* 上部余白をメニューバーの高さ分確保 */
             background-color: #f5f5f5;
             padding: 10px;
         }
@@ -64,6 +63,9 @@
         .time-input-group input {
             flex: 1;
             margin-bottom: 0;
+            padding: 12px;
+            font-size: 1.1em;
+            text-align: center;
         }
 
         .time-input-group span {
@@ -274,7 +276,10 @@
         @media (max-width: 768px) {
             body {
                 font-size: 18px;
-                padding-top: 70px; /* モバイルでは少し高めに */
+            }
+
+            .title-image {
+                margin-top: 70px; /* モバイルでは少し高めに */
             }
 
             form {
@@ -307,8 +312,8 @@
         }
 
         @media (max-width: 480px) {
-            body {
-                padding-top: 80px; /* 小さい画面では更に高めに */
+            .title-image {
+                margin-top: 80px; /* 小さい画面では更に高めに */
             }
 
             .nav-buttons {
@@ -326,7 +331,7 @@
 </head>
 <body>
     <header>
-    <img src="title-image.png" alt="スムレコ 配達効率計算" class="title-image">
+        <img src="data:image/png;base64,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" alt="スムレコ" class="title-image">
     </header>
     <form id="deliveryForm">
     
@@ -335,17 +340,11 @@
             <h3>稼働時間</h3>
             <label for="startTime">開始時間</label>
             <div class="time-input-group">
-                <input type="number" id="startHour" placeholder="時" min="0" max="23" autocomplete="off">
-                <span>時</span>
-                <input type="number" id="startMinute" placeholder="分" min="0" max="59" autocomplete="off">
-                <span>分</span>
+                <input type="time" id="startTime" autocomplete="off">
             </div>
             <label for="endTime">終了時間</label>
             <div class="time-input-group">
-                <input type="number" id="endHour" placeholder="時" min="0" max="23" autocomplete="off">
-                <span>時</span>
-                <input type="number" id="endMinute" placeholder="分" min="0" max="59" autocomplete="off">
-                <span>分</span>
+                <input type="time" id="endTime" autocomplete="off">
             </div>
         </div>
 
@@ -470,10 +469,22 @@
                 
                 try {
                     // 稼働時間の計算
-                    var startHour = parseFloat(document.getElementById('startHour').value) || 0;
-                    var startMinute = parseFloat(document.getElementById('startMinute').value) || 0;
-                    var endHour = parseFloat(document.getElementById('endHour').value) || 0;
-                    var endMinute = parseFloat(document.getElementById('endMinute').value) || 0;
+                    var startTime = document.getElementById('startTime').value;
+                    var endTime = document.getElementById('endTime').value;
+                    
+                    if (!startTime || !endTime) {
+                        alert('開始時間と終了時間を入力してください');
+                        return;
+                    }
+                    
+                    // 時刻文字列を分解
+                    var startParts = startTime.split(':');
+                    var endParts = endTime.split(':');
+                    
+                    var startHour = parseInt(startParts[0]) || 0;
+                    var startMinute = parseInt(startParts[1]) || 0;
+                    var endHour = parseInt(endParts[0]) || 0;
+                    var endMinute = parseInt(endParts[1]) || 0;
                     
                     var startTimeInMinutes = startHour * 60 + startMinute;
                     var endTimeInMinutes = endHour * 60 + endMinute;
