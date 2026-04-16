@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -25,7 +26,8 @@
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 60px auto 0; /* 上部余白をメニューバーの高さ分確保 */
+            margin: 60px auto 0;
+            /* 上部余白をメニューバーの高さ分確保 */
             background-color: #f5f5f5;
             padding: 10px;
         }
@@ -40,7 +42,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        input, button {
+        input,
+        button {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -149,20 +152,45 @@
         }
 
         /* 入力セクションのイメージカラー */
-        .uber-input { border-left-color: #00C851; }
-        .uber-input h4 { color: #00C851; }
+        .uber-input {
+            border-left-color: #00C851;
+        }
 
-        .demae-input { border-left-color: #DC143C; }
-        .demae-input h4 { color: #DC143C; }
+        .uber-input h4 {
+            color: #00C851;
+        }
 
-        .rocket-input { border-left-color: #FF6B6B; }
-        .rocket-input h4 { color: #FF6B6B; }
+        .demae-input {
+            border-left-color: #DC143C;
+        }
 
-        .menu-input { border-left-color: #FF8C00; }
-        .menu-input h4 { color: #FF8C00; }
+        .demae-input h4 {
+            color: #DC143C;
+        }
 
-        .wolt-input { border-left-color: #00BFFF; }
-        .wolt-input h4 { color: #00BFFF; }
+        .rocket-input {
+            border-left-color: #FF6B6B;
+        }
+
+        .rocket-input h4 {
+            color: #FF6B6B;
+        }
+
+        .menu-input {
+            border-left-color: #FF8C00;
+        }
+
+        .menu-input h4 {
+            color: #FF8C00;
+        }
+
+        .other-input {
+            border-left-color: #00BFFF;
+        }
+
+        .other-input h4 {
+            color: #00BFFF;
+        }
 
         /* 結果表示設定 */
         #results {
@@ -189,7 +217,8 @@
             font-size: 1.25em;
         }
 
-        h3, h4 {
+        h3,
+        h4 {
             font-size: 1em;
             font-weight: bold;
             color: #333333;
@@ -226,20 +255,45 @@
         }
 
         /* プラットフォーム別の色分け（結果表示） */
-        .uber-section { border-left-color: #00C851; }
-        .uber-section h4 { color: #00C851; }
+        .uber-section {
+            border-left-color: #00C851;
+        }
 
-        .demae-section { border-left-color: #DC143C; }
-        .demae-section h4 { color: #DC143C; }
+        .uber-section h4 {
+            color: #00C851;
+        }
 
-        .rocket-section { border-left-color: #FF6B6B; }
-        .rocket-section h4 { color: #FF6B6B; }
+        .demae-section {
+            border-left-color: #DC143C;
+        }
 
-        .menu-section { border-left-color: #FF8C00; }
-        .menu-section h4 { color: #FF8C00; }
+        .demae-section h4 {
+            color: #DC143C;
+        }
 
-        .wolt-section { border-left-color: #00BFFF; }
-        .wolt-section h4 { color: #00BFFF; }
+        .rocket-section {
+            border-left-color: #FF6B6B;
+        }
+
+        .rocket-section h4 {
+            color: #FF6B6B;
+        }
+
+        .menu-section {
+            border-left-color: #FF8C00;
+        }
+
+        .menu-section h4 {
+            color: #FF8C00;
+        }
+
+        .other-section {
+            border-left-color: #00BFFF;
+        }
+
+        .other-section h4 {
+            color: #00BFFF;
+        }
 
         /* ナビゲーションボタン */
         .nav-buttons {
@@ -282,13 +336,33 @@
             transform: scale(0.95);
         }
 
-        .nav-time { background-color: #666666; }
-        .nav-uber { background-color: #00C851; }
-        .nav-demae { background-color: #DC143C; }
-        .nav-rocket { background-color: #FF6B6B; }
-        .nav-menu { background-color: #FF8C00; }
-        .nav-wolt { background-color: #00BFFF; }
-        .nav-calc { background-color: #4caf50; }
+        .nav-time {
+            background-color: #666666;
+        }
+
+        .nav-uber {
+            background-color: #00C851;
+        }
+
+        .nav-demae {
+            background-color: #DC143C;
+        }
+
+        .nav-rocket {
+            background-color: #FF6B6B;
+        }
+
+        .nav-menu {
+            background-color: #FF8C00;
+        }
+
+        .nav-other {
+            background-color: #00BFFF;
+        }
+
+        .nav-calc {
+            background-color: #4caf50;
+        }
 
         /* メディアクエリ */
         @media (max-width: 768px) {
@@ -297,14 +371,16 @@
             }
 
             .title-image {
-                margin-top: 70px; /* モバイルでは少し高めに */
+                margin-top: 70px;
+                /* モバイルでは少し高めに */
             }
 
             form {
                 padding: 15px;
             }
 
-            input, button {
+            input,
+            button {
                 width: calc(100% - 10px);
             }
 
@@ -331,7 +407,8 @@
 
         @media (max-width: 480px) {
             .title-image {
-                margin-top: 80px; /* 小さい画面では更に高めに */
+                margin-top: 80px;
+                /* 小さい画面では更に高めに */
             }
 
             .nav-buttons {
@@ -347,22 +424,54 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <img src="title-image.png" alt="スムレコ 配達効率計算" class="title-image">
     </header>
     <form id="deliveryForm">
-    
+
         <!-- 稼働時間の入力フォーム -->
         <div class="form-section" id="time-section">
             <h3>稼働時間</h3>
-            <label for="startTime">開始時間</label>
-            <div class="time-input-group">
-                <input type="time" id="startTime" autocomplete="off">
+
+            <div style="margin-bottom: 15px; display: flex; gap: 10px; justify-content: center;">
+                <label style="color: #545454; font-size: 0.9em; margin-bottom: 0;">
+                    <input type="radio" name="timeInputMode" value="range" checked onchange="toggleTimeInputMode()">
+                    時刻で入力
+                </label>
+                <label style="color: #545454; font-size: 0.9em; margin-bottom: 0;">
+                    <input type="radio" name="timeInputMode" value="duration" onchange="toggleTimeInputMode()">
+                    稼働時間で直接入力
+                </label>
             </div>
-            <label for="endTime">終了時間</label>
-            <div class="time-input-group">
-                <input type="time" id="endTime" autocomplete="off">
+
+            <!-- Mode 1: Range -->
+            <div id="timeInputRange">
+                <label for="startTime">開始時間</label>
+                <div class="time-input-group">
+                    <input type="time" id="startTime" autocomplete="off">
+                </div>
+                <label for="endTime">終了時間</label>
+                <div class="time-input-group">
+                    <input type="time" id="endTime" autocomplete="off">
+                </div>
+            </div>
+
+            <!-- Mode 2: Duration -->
+            <div id="timeInputDuration" style="display: none;">
+                <div class="time-input-group">
+                    <div style="flex: 1;">
+                        <label for="durationHours" style="text-align: center;">時間</label>
+                        <input type="number" id="durationHours" min="0" placeholder="0" autocomplete="off"
+                            style="text-align: center; font-size: 1.1em; margin-bottom: 0; padding: 12px; background-color: #ffffff; border: 1px solid #ddd; color: #333333;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="durationMinutes" style="text-align: center;">分</label>
+                        <input type="number" id="durationMinutes" min="0" max="59" placeholder="0" autocomplete="off"
+                            style="text-align: center; font-size: 1.1em; margin-bottom: 0; padding: 12px; background-color: #ffffff; border: 1px solid #ddd; color: #333333;">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -426,18 +535,18 @@
             </div>
         </div>
 
-        <!-- Wolt セクション -->
-        <div class="form-section" id="wolt-section">
-            <div class="platform-section wolt-input">
-                <h4>Wolt</h4>
-                <label for="woltDeliveries">配達件数</label>
-                <input type="number" id="woltDeliveries" placeholder="件数" autocomplete="off">
-                <label for="woltBaseReward">配達報酬</label>
-                <input type="number" id="woltBaseReward" placeholder="円" autocomplete="off">
-                <label for="woltBonus">ボーナス</label>
-                <input type="number" id="woltBonus" placeholder="円" autocomplete="off">
-                <label for="woltTip">チップ</label>
-                <input type="number" id="woltTip" placeholder="円" autocomplete="off">
+        <!-- その他 セクション -->
+        <div class="form-section" id="other-section">
+            <div class="platform-section other-input">
+                <h4>その他</h4>
+                <label for="otherDeliveries">配達件数</label>
+                <input type="number" id="otherDeliveries" placeholder="件数" autocomplete="off">
+                <label for="otherBaseReward">配達報酬</label>
+                <input type="number" id="otherBaseReward" placeholder="円" autocomplete="off">
+                <label for="otherBonus">ボーナス</label>
+                <input type="number" id="otherBonus" placeholder="円" autocomplete="off">
+                <label for="otherTip">チップ</label>
+                <input type="number" id="otherTip" placeholder="円" autocomplete="off">
             </div>
         </div>
 
@@ -451,13 +560,25 @@
         <button type="button" class="nav-btn nav-demae" onclick="scrollToSection('demae-section')">出前館</button>
         <button type="button" class="nav-btn nav-rocket" onclick="scrollToSection('rocket-section')">ロケット</button>
         <button type="button" class="nav-btn nav-menu" onclick="scrollToSection('menu-section')">menu</button>
-        <button type="button" class="nav-btn nav-wolt" onclick="scrollToSection('wolt-section')">Wolt</button>
+        <button type="button" class="nav-btn nav-other" onclick="scrollToSection('other-section')">その他</button>
         <button type="button" class="nav-btn nav-calc" onclick="scrollToSection('calc-button')">計算</button>
     </div>
 
     <div id="results"></div>
 
     <script>
+        // 入力モードの切り替え機能
+        function toggleTimeInputMode() {
+            var mode = document.querySelector('input[name="timeInputMode"]:checked').value;
+            if (mode === 'range') {
+                document.getElementById('timeInputRange').style.display = 'block';
+                document.getElementById('timeInputDuration').style.display = 'none';
+            } else {
+                document.getElementById('timeInputRange').style.display = 'none';
+                document.getElementById('timeInputDuration').style.display = 'block';
+            }
+        }
+
         // スクロール機能
         function scrollToSection(sectionId) {
             var element = document.getElementById(sectionId);
@@ -466,7 +587,7 @@
                 var navHeight = document.querySelector('.nav-buttons').offsetHeight;
                 var elementPosition = element.offsetTop;
                 var offsetPosition = elementPosition - navHeight - 10; // 10pxの余白を追加
-                
+
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
@@ -475,45 +596,62 @@
         }
 
         // DOM読み込み完了後の処理
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var form = document.getElementById('deliveryForm');
             if (!form) {
                 console.error('フォームが見つかりません');
                 return;
             }
 
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 try {
                     // 稼働時間の計算
-                    var startTime = document.getElementById('startTime').value;
-                    var endTime = document.getElementById('endTime').value;
-                    
-                    if (!startTime || !endTime) {
-                        alert('開始時間と終了時間を入力してください');
-                        return;
+                    var workHours = 0;
+                    var timeMode = document.querySelector('input[name="timeInputMode"]:checked');
+                    timeMode = timeMode ? timeMode.value : 'range';
+
+                    if (timeMode === 'range') {
+                        var startTime = document.getElementById('startTime').value;
+                        var endTime = document.getElementById('endTime').value;
+
+                        if (!startTime || !endTime) {
+                            alert('開始時間と終了時間を入力してください');
+                            return;
+                        }
+
+                        // 時刻文字列を分解
+                        var startParts = startTime.split(':');
+                        var endParts = endTime.split(':');
+
+                        var startHour = parseInt(startParts[0]) || 0;
+                        var startMinute = parseInt(startParts[1]) || 0;
+                        var endHour = parseInt(endParts[0]) || 0;
+                        var endMinute = parseInt(endParts[1]) || 0;
+
+                        var startTimeInMinutes = startHour * 60 + startMinute;
+                        var endTimeInMinutes = endHour * 60 + endMinute;
+
+                        var workTimeInMinutes = endTimeInMinutes - startTimeInMinutes;
+                        if (workTimeInMinutes < 0) {
+                            workTimeInMinutes += 24 * 60; // 日をまたいだ場合
+                        }
+
+                        workHours = workTimeInMinutes / 60;
+                    } else {
+                        // 直接入力モード
+                        var durationHours = parseFloat(document.getElementById('durationHours').value) || 0;
+                        var durationMinutes = parseFloat(document.getElementById('durationMinutes').value) || 0;
+
+                        if (durationHours === 0 && durationMinutes === 0) {
+                            alert('稼働時間を入力してください');
+                            return;
+                        }
+
+                        workHours = durationHours + (durationMinutes / 60);
                     }
-                    
-                    // 時刻文字列を分解
-                    var startParts = startTime.split(':');
-                    var endParts = endTime.split(':');
-                    
-                    var startHour = parseInt(startParts[0]) || 0;
-                    var startMinute = parseInt(startParts[1]) || 0;
-                    var endHour = parseInt(endParts[0]) || 0;
-                    var endMinute = parseInt(endParts[1]) || 0;
-                    
-                    var startTimeInMinutes = startHour * 60 + startMinute;
-                    var endTimeInMinutes = endHour * 60 + endMinute;
-                    
-                    var workTimeInMinutes = endTimeInMinutes - startTimeInMinutes;
-                    if (workTimeInMinutes < 0) {
-                        workTimeInMinutes += 24 * 60; // 日をまたいだ場合
-                    }
-                    
-                    var workHours = workTimeInMinutes / 60;
-                    
+
                     // 各プラットフォームのデータ取得
                     var platforms = {
                         uber: {
@@ -548,36 +686,38 @@
                             tip: parseFloat(document.getElementById('menuTip').value) || 0,
                             className: 'menu-section'
                         },
-                        wolt: {
-                            name: 'Wolt',
-                            deliveries: parseFloat(document.getElementById('woltDeliveries').value) || 0,
-                            baseReward: parseFloat(document.getElementById('woltBaseReward').value) || 0,
-                            bonus: parseFloat(document.getElementById('woltBonus').value) || 0,
-                            tip: parseFloat(document.getElementById('woltTip').value) || 0,
-                            className: 'wolt-section'
+                        other: {
+                            name: 'その他',
+                            deliveries: parseFloat(document.getElementById('otherDeliveries').value) || 0,
+                            baseReward: parseFloat(document.getElementById('otherBaseReward').value) || 0,
+                            bonus: parseFloat(document.getElementById('otherBonus').value) || 0,
+                            tip: parseFloat(document.getElementById('otherTip').value) || 0,
+                            className: 'other-section'
                         }
                     };
-                    
+
                     // 全体の集計
                     var totalSales = 0;
+                    var totalBaseReward = 0;
                     var totalDeliveries = 0;
-                    
+
                     // Object.values() の代替処理（古いブラウザ対応）
-                    var platformKeys = ['uber', 'demae', 'rocket', 'menu', 'wolt'];
+                    var platformKeys = ['uber', 'demae', 'rocket', 'menu', 'other'];
                     for (var i = 0; i < platformKeys.length; i++) {
                         var platform = platforms[platformKeys[i]];
                         platform.totalSales = platform.baseReward + platform.bonus + platform.tip;
                         totalSales += platform.totalSales;
+                        totalBaseReward += platform.baseReward;
                         totalDeliveries += platform.deliveries;
                     }
-                    
+
                     // フォーマット関数
                     function formatDecimal(number) {
                         if (isNaN(number)) number = 0;
                         var parts = number.toFixed(2).split('.');
                         return '<span class="integer-part">' + parts[0] + '</span>.<span class="decimal-part">' + parts[1] + '</span>';
                     }
-                    
+
                     // 結果HTML生成
                     var resultsHTML = '<h3>稼働結果</h3>';
                     resultsHTML += '<div class="company-section">';
@@ -585,11 +725,13 @@
                     resultsHTML += '<p>合計売上: <span class="result-value">' + formatDecimal(totalSales) + '</span>　円</p>';
                     resultsHTML += '<p>稼働時間: <span class="result-value">' + formatDecimal(workHours) + '</span>　時間</p>';
                     resultsHTML += '<p>総配達件数: <span class="result-value">' + totalDeliveries + '</span>　件</p>';
-                    resultsHTML += '<p>時給: <span class="result-value">' + formatDecimal(workHours > 0 ? totalSales / workHours : 0) + '</span>　円/時</p>';
-                    resultsHTML += '<p>平均単価: <span class="result-value">' + formatDecimal(totalDeliveries > 0 ? totalSales / totalDeliveries : 0) + '</span>　円/件</p>';
+                    resultsHTML += '<p>時給: <span class="result-value">' + formatDecimal(workHours > 0 ? totalSales / workHours : 0) + '</span>　円/時<br>';
+                    resultsHTML += '<span style="font-size: 0.85em; color: #777;">(報酬のみ: ' + formatDecimal(workHours > 0 ? totalBaseReward / workHours : 0) + '　円/時)</span></p>';
+                    resultsHTML += '<p>平均単価: <span class="result-value">' + formatDecimal(totalDeliveries > 0 ? totalSales / totalDeliveries : 0) + '</span>　円/件<br>';
+                    resultsHTML += '<span style="font-size: 0.85em; color: #777;">(報酬のみ: ' + formatDecimal(totalDeliveries > 0 ? totalBaseReward / totalDeliveries : 0) + '　円/件)</span></p>';
                     resultsHTML += '<p>配達ペース: <span class="result-value">' + formatDecimal(workHours > 0 ? totalDeliveries / workHours : 0) + '</span>　件/時</p>';
                     resultsHTML += '</div>';
-                    
+
                     // 各プラットフォームの詳細
                     for (var i = 0; i < platformKeys.length; i++) {
                         var key = platformKeys[i];
@@ -601,33 +743,35 @@
                             resultsHTML += '<p>配達件数: <span class="result-value">' + platform.deliveries + '</span>　件</p>';
                             resultsHTML += '<p>配達報酬: <span class="result-value">' + formatDecimal(platform.baseReward) + '</span>　円</p>';
                             resultsHTML += '<p>ボーナス: <span class="result-value">' + formatDecimal(platform.bonus) + '</span>　円</p>';
-                            
+
                             if (platform.tip > 0) {
                                 resultsHTML += '<p>チップ: <span class="result-value">' + formatDecimal(platform.tip) + '</span>　円</p>';
                             }
-                            resultsHTML += '<p>時給: <span class="result-value">' + formatDecimal(workHours > 0 ? platform.totalSales / workHours : 0) + '</span>　円/時</p>';
-                            resultsHTML += '<p>単価: <span class="result-value">' + formatDecimal(platform.deliveries > 0 ? platform.totalSales / platform.deliveries : 0) + '</span>　円/件</p>';
+                            resultsHTML += '<p>時給: <span class="result-value">' + formatDecimal(workHours > 0 ? platform.totalSales / workHours : 0) + '</span>　円/時<br>';
+                            resultsHTML += '<span style="font-size: 0.85em; color: #777;">(報酬のみ: ' + formatDecimal(workHours > 0 ? platform.baseReward / workHours : 0) + '　円/時)</span></p>';
+                            resultsHTML += '<p>単価: <span class="result-value">' + formatDecimal(platform.deliveries > 0 ? platform.totalSales / platform.deliveries : 0) + '</span>　円/件<br>';
+                            resultsHTML += '<span style="font-size: 0.85em; color: #777;">(報酬のみ: ' + formatDecimal(platform.deliveries > 0 ? platform.baseReward / platform.deliveries : 0) + '　円/件)</span></p>';
                             resultsHTML += '</div>';
                         }
                     }
-                    
+
                     // 結果を表示
                     var resultsElement = document.getElementById('results');
                     resultsElement.innerHTML = resultsHTML;
                     resultsElement.style.display = 'block';
-                    
+
                     // スクロールを実行
-                    setTimeout(function() {
+                    setTimeout(function () {
                         var navHeight = document.querySelector('.nav-buttons').offsetHeight;
                         var elementPosition = resultsElement.offsetTop;
                         var offsetPosition = elementPosition - navHeight - 10;
-                        
+
                         window.scrollTo({
                             top: offsetPosition,
                             behavior: 'smooth'
                         });
                     }, 100);
-                    
+
                 } catch (error) {
                     console.error('エラーが発生しました:', error);
                     var resultsElement = document.getElementById('results');
@@ -639,4 +783,5 @@
         });
     </script>
 </body>
+
 </html>
