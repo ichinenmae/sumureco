@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>スムレコ 配達効率計算アプリ SMOOTH RECORDER</title>
+    <!-- 画像保存用ライブラリ html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* グローバルリセット */
         * {
@@ -595,6 +597,44 @@
             }
         }
 
+        // 画像保存機能
+        function saveResultsAsImage() {
+            var resultsElement = document.getElementById('results');
+            var saveBtn = document.getElementById('save-image-btn');
+            
+            // Wait text
+            var originalText = saveBtn.innerText;
+            saveBtn.innerText = '保存中...';
+            saveBtn.style.opacity = '0.5';
+            
+            // Hide button momentarily to avoid capturing it
+            setTimeout(function() {
+                saveBtn.style.display = 'none';
+                
+                html2canvas(resultsElement, {
+                    scale: 2, // High resolution
+                    backgroundColor: '#ffffff'
+                }).then(function(canvas) {
+                    // Restore button
+                    saveBtn.style.display = 'block';
+                    saveBtn.innerText = originalText;
+                    saveBtn.style.opacity = '1';
+                    
+                    // Create download link
+                    var link = document.createElement('a');
+                    link.download = '稼働結果_' + new Date().toLocaleDateString().replace(/\//g, '-') + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                }).catch(function(err) {
+                    console.error('画像保存に失敗しました:', err);
+                    saveBtn.style.display = 'block';
+                    saveBtn.innerText = originalText;
+                    saveBtn.style.opacity = '1';
+                    alert('画像の保存に失敗しました。');
+                });
+            }, 100);
+        }
+
         // DOM読み込み完了後の処理
         document.addEventListener('DOMContentLoaded', function () {
             var form = document.getElementById('deliveryForm');
@@ -754,6 +794,9 @@
                             resultsHTML += '</div>';
                         }
                     }
+                    
+                    // 保存ボタンの追加
+                    resultsHTML += '<button type="button" id="save-image-btn" style="margin-top: 20px; background-color: #2196F3;" onclick="saveResultsAsImage()">画像として保存 (PNG)</button>';
 
                     // 結果を表示
                     var resultsElement = document.getElementById('results');
