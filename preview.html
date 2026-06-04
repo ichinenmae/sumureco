@@ -149,12 +149,44 @@ body{
 .negative{
     color:#ef5350;
 }
+
+.reset-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+.reset-btn {
+    background: transparent;
+    color: #ef5350;
+    border: 1.5px solid #ef5350;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+    background: #ef5350;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(239, 83, 80, 0.4);
+}
+
+.reset-btn:active {
+    transform: scale(0.95);
+}
 </style>
 </head>
 
 <body>
 
 <div class="main">
+
+<div class="reset-container">
+    <button class="reset-btn" onclick="resetStorage()">データをリセット</button>
+</div>
 
 <div class="card">
 <div class="label">経過時間</div>
@@ -259,6 +291,30 @@ let state = {
     targetCount:0,
     plannedHours:0
 };
+
+function resetStorage(){
+    if(confirm("ローカルストレージのデータをリセットしますか？")){
+        localStorage.removeItem(STORAGE_KEY);
+        state = {
+            startTime:null,
+            paused:false,
+            pauseStart:null,
+            pausedTotal:0,
+            count:0,
+            sales:0,
+            targetHourly:0,
+            targetCount:0,
+            plannedHours:0
+        };
+        sales.value = "";
+        targetHourly.value = "";
+        targetCount.value = "";
+        plannedHours.value = "";
+        countDisplay.textContent = "0";
+        updatePauseButton();
+        update();
+    }
+}
 
 function saveState(){
     state.sales = Number(sales.value)||0;
