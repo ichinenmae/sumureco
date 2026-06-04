@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>配達ペースチェッカー</title>
+<style>
+body{font-family:sans-serif;max-width:700px;margin:auto;padding:12px}
+.card{border:1px solid #ccc;border-radius:8px;padding:12px;margin:10px 0}
+.big{font-size:2rem;font-weight:bold}
+input{font-size:1.4rem;width:100%;padding:8px;box-sizing:border-box}
+button{font-size:1.2rem;padding:12px;margin:4px;min-width:80px}
+.row{display:flex;flex-wrap:wrap;gap:6px}
+.metric{font-size:1.8rem;font-weight:bold}
+.small{font-size:.95rem;color:#555}
+</style>
+</head>
+<body>
+<h1>配達ペースチェッカー</h1>
+
+<div class="card">
+<div id="timer" class="big">00:00:00</div>
+<div class="row">
+<button onclick="startWork()">開始</button>
+<button onclick="pauseWork()">一時停止</button>
+<button onclick="resumeWork()">再開</button>
+<button onclick="endWork()">終了</button>
+</div>
+</div>
+
+<div class="card">
+<h3>換算時給</h3>
+<div id="hourly" class="metric">0円/h</div>
+<h3>件数/h</h3>
+<div id="perHour" class="metric">0件/h</div>
+</div>
+
+<div class="card">
+<h3>終了予測</h3>
+<div id="forecastSales"></div>
+<div id="forecastCount"></div>
+</div>
+
+<div class="card">
+<h3>売上</h3>
+<input id="sales" type="number" min="0">
+</div>
+
+<div class="card">
+<h3>件数</h3>
+<input id="count" type="number" min="0">
+<div class="row">
+<button onclick="addCount(-1)">-1</button>
+<button onclick="addCount(1)">+1</button>
+<button onclick="addCount(5)">+5</button>
+<button onclick="addCount(10)">+10</button>
+</div>
+</div>
+
+<div class="card">
+<h3>目標時給</h3>
+<input id="targetHourly" type="number">
+<h3>目標件数/h</h3>
+<input id="targetCount" type="number" step="0.1">
+<h3>予定稼働時間</h3>
+<input id="plannedHours" type="number" step="0.1">
+</div>
+
+<div class="card">
+<h3>目標との差</h3>
+<div id="hourlyGap"></div>
+<div id="countGap"></div>
+</div>
+
+<script>
+const K='delivery_pace_app_v1';
+let state={startTime:null,paused:false,pauseStart:null,pausedTotal:0};
+
+function save(){
+state.sales=+sales.value||0;
+state.count=+count.value||0;
+state.targetHourly=+targetHourly.value||0;
+state.targetCount=+targetCount.value||0;
+state.plannedHours=+plannedHours.value||0;
+localStorage.setItem(K,JSON.stringify(state));
+}
+
+function load(){
+const d=localStorage.getItem(K);
+if(d) state=JSON.parse(d);
+sales.value=state.sales||0;
+count.value=state.count||0;
+targetHourly.value=state.targetHourly||"";
+targetCount.value=state.targetCount||"";
+plannedHours.value=state.plannedHours||"";
+}
+
+function startWork(){
+if(!state.startTime){
+state.startTime=Date.now();
+save();
+}
+}
+
+function pauseWork(){
+if(state.startTime && !state.paused){
+state.paused=true;
+state.pauseStart=Date.now();
+save();
+}
+}
+
+function resumeWork(){
+if(state.paused){
+state.pausedTotal += Date.now()-state.pauseStart;
+state.pauseStart=null;
+state.paused=false;
+save();
+}
+}
+
+function endWork(){
+if(confirm("稼働データをリセットしますか？")){
+localStorage.removeItem(K);
+location.reload();
+}
+}
+
+function elapsedMs(){
+if(!state.startTime) return 0;
+let now=Date.now();
+let paused=state.paused ? (now-state.pauseStart) : 0;
+return now-state.startTime-state.pausedTotal-paused;
+}
+
+function addCount(v){
+count.value=Math.max(0,(+count.value||0)+v);
+save(); update();
+}
+
+function fmt(ms){
+let s=Math.floor(ms/1000);
+let h=Math.floor(s/3600);
+s%=3600;
+let m=Math.floor(s/60);
+s%=60;
+return [h,m,s].map(x=>String(x).padStart(2,'0')).join(':');
+}
+
+function update(){
+let ms=elapsedMs();
+timer.textContent=fmt(ms);
+
+let hrs=ms/3600000;
+let sale=+sales.value||0;
+let cnt=+count.value||0;
+
+let hourly=hrs>0?sale/hrs:0;
+let cph=hrs>0?cnt/hrs:0;
+
+hourly.textContent=Math.round(hourly).toLocaleString()+"円/h";
+perHour.textContent=cph.toFixed(2)+"件/h";
+
+let th=+targetHourly.value||0;
+let tc=+targetCount.value||0;
+
+hourlyGap.textContent=th?`時給差: ${Math.round(hourly-th).toLocaleString()}円/h`:"";
+countGap.textContent=tc?`件数差: ${(cph-tc).toFixed(2)}件/h`:"";
+
+let ph=+plannedHours.value||0;
+if(ph>0){
+forecastSales.textContent="予測売上: "+Math.round(hourly*ph).toLocaleString()+"円";
+forecastCount.textContent="予測件数: "+(cph*ph).toFixed(1)+"件";
+    }
+save();
+}
+
+document.querySelectorAll("input").forEach(x=>x.addEventListener("input",()=>{save();update();}));
+load();
+update();
+setInterval(update,1000);
+</script>
+</body>
+</html>
