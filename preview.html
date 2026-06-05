@@ -624,6 +624,15 @@ plannedHours
             update();
         }
     );
+
+    el.addEventListener(
+        "focus",
+        ()=>{
+            setTimeout(() => {
+                el.select();
+            }, 0);
+        }
+    );
 });
 
 loadState();
