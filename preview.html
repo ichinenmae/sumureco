@@ -17,7 +17,7 @@ body{
     font-family:sans-serif;
     background:#111;
     color:#fff;
-    padding-bottom:320px;
+    padding-bottom:calc(400px + env(safe-area-inset-bottom));
 }
 
 .main{
@@ -79,6 +79,38 @@ body{
     bottom:0;
     background:#222;
     border-top:2px solid #444;
+}
+
+.quick-switch-bar{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+    background:#181818;
+    border-top:1px solid #444;
+}
+
+.quick-switch-btn{
+    min-height:56px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:2px solid #4caf50;
+    border-radius:8px;
+    background:#111;
+    color:#a5d6a7;
+    font-size:20px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.quick-switch-btn.active{
+    background:#4caf50;
+    color:#fff;
+}
+
+.quick-switch-btn:active{
+    transform:scale(0.98);
 }
 
 .pauseBtn{
@@ -273,6 +305,11 @@ inputmode="numeric">
 </div>
 
 </div>
+
+<nav class="quick-switch-bar" aria-label="稼働中ツール切替">
+<a class="quick-switch-btn" href="../sumucopy/index.html">定型文</a>
+<a class="quick-switch-btn active" href="./preview.html" aria-current="page">ペース</a>
+</nav>
 
 </div>
 
