@@ -7,6 +7,20 @@
 <title>配達ペースチェッカー</title>
 
 <style>
+:root{
+    --color-bg:#ffffff;
+    --color-surface:#f6f8f6;
+    --color-card:#ffffff;
+    --color-text:#545454;
+    --color-muted:#777777;
+    --color-primary:#4caf50;
+    --color-primary-dark:#2e7d32;
+    --color-danger:#c62828;
+    --color-border:#dce6dc;
+    --shadow-card:0 4px 8px rgba(0,0,0,0.10);
+    --radius-card:12px;
+}
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -14,62 +28,187 @@
 }
 
 body{
-    font-family:sans-serif;
-    background:#111;
-    color:#fff;
-    padding-bottom:calc(400px + env(safe-area-inset-bottom));
+    font-family:Arial,sans-serif;
+    background:var(--color-bg);
+    color:var(--color-text);
+    line-height:1.5;
+    padding-bottom:calc(380px + env(safe-area-inset-bottom));
 }
 
 .main{
+    max-width:640px;
+    margin:0 auto;
     padding:12px;
 }
 
 .card{
-    background:#1d1d1d;
-    border-radius:12px;
+    background:var(--color-card);
+    border:1px solid var(--color-border);
+    border-radius:var(--radius-card);
     padding:16px;
     margin-bottom:12px;
+    box-shadow:var(--shadow-card);
 }
 
 .label{
-    color:#aaa;
+    color:var(--color-muted);
     font-size:14px;
     margin-bottom:6px;
+    font-weight:bold;
+}
+
+.metrics-card{
+    padding:14px;
+}
+
+.metrics-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.metric-main{
+    grid-column:1 / -1;
+    padding:4px 0 8px;
+    border-bottom:1px solid var(--color-border);
+}
+
+.metric-sub{
+    padding-top:4px;
 }
 
 .time{
-    font-size:42px;
+    font-size:34px;
     font-weight:bold;
+    color:var(--color-text);
 }
 
 .hourly{
-    font-size:56px;
+    font-size:52px;
     font-weight:bold;
+    color:var(--color-primary-dark);
+    line-height:1.1;
 }
 
 .mid{
-    font-size:34px;
+    font-size:30px;
     font-weight:bold;
+    color:var(--color-text);
+    line-height:1.2;
 }
 
 .value{
-    font-size:24px;
+    font-size:22px;
     margin-top:8px;
+    color:var(--color-text);
 }
 
 .settings input{
     width:100%;
-    font-size:24px;
-    padding:10px;
+    font-size:22px;
+    padding:12px;
     margin-bottom:12px;
+    border:1px solid var(--color-border);
+    border-radius:8px;
+    color:var(--color-text);
+    background:#fff;
+    text-align:right;
+}
+
+.inline-input{
+    width:100%;
+    font-size:22px;
+    padding:12px;
+    margin:6px 0 12px;
+    border:1px solid var(--color-border);
+    border-radius:8px;
+    color:var(--color-text);
+    background:#fff;
+    text-align:right;
+}
+
+.settings input:focus,
+.salesInput:focus,
+.inline-input:focus{
+    outline:2px solid var(--color-primary);
+    border-color:var(--color-primary);
+}
+
+.distance-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:10px;
+}
+
+.distance-item{
+    background:var(--color-surface);
+    border-radius:8px;
+    padding:10px;
+}
+
+.distance-item.wide{
+    grid-column:1 / -1;
+}
+
+.distance-value{
+    color:var(--color-text);
+    font-size:20px;
+    font-weight:bold;
+    line-height:1.25;
+}
+
+.distance-note{
+    color:var(--color-muted);
+    font-size:13px;
+    margin-top:4px;
 }
 
 .startBtn{
     width:100%;
-    font-size:28px;
+    font-size:24px;
     padding:14px;
     border:none;
-    border-radius:12px;
+    border-radius:10px;
+    background:var(--color-primary);
+    color:#fff;
+    font-weight:bold;
+}
+
+.importBtn{
+    width:100%;
+    font-size:20px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:var(--color-primary-dark);
+    color:#fff;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+.reset-container{
+    margin-bottom:12px;
+}
+
+.reset-btn{
+    width:100%;
+    background:#fff;
+    color:var(--color-danger);
+    border:1.5px solid var(--color-danger);
+    border-radius:10px;
+    padding:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.reset-btn:active,
+.startBtn:active,
+.importBtn:active,
+.countButtons button:active,
+.pauseBtn:active{
+    transform:scale(0.98);
 }
 
 .fixedArea{
@@ -77,8 +216,9 @@ body{
     left:0;
     right:0;
     bottom:0;
-    background:#222;
-    border-top:2px solid #444;
+    background:var(--color-card);
+    border-top:1px solid var(--color-border);
+    box-shadow:0 -4px 14px rgba(0,0,0,0.14);
 }
 
 .quick-switch-bar{
@@ -86,8 +226,8 @@ body{
     grid-template-columns:1fr 1fr;
     gap:8px;
     padding:8px 10px calc(8px + env(safe-area-inset-bottom));
-    background:#181818;
-    border-top:1px solid #444;
+    background:#fff;
+    border-top:1px solid var(--color-border);
 }
 
 .quick-switch-btn{
@@ -95,17 +235,17 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    border:2px solid #4caf50;
+    border:2px solid var(--color-primary);
     border-radius:8px;
-    background:#111;
-    color:#a5d6a7;
+    background:#fff;
+    color:var(--color-primary-dark);
     font-size:20px;
     font-weight:bold;
     text-decoration:none;
 }
 
 .quick-switch-btn.active{
-    background:#4caf50;
+    background:var(--color-primary);
     color:#fff;
 }
 
@@ -117,56 +257,82 @@ body{
     width:100%;
     border:none;
     color:#fff;
-    font-size:30px;
+    font-size:24px;
     font-weight:bold;
-    padding:18px;
+    padding:14px;
 }
 
 .running{
-    background:#c62828;
+    background:var(--color-danger);
 }
 
 .paused{
-    background:#2e7d32;
+    background:var(--color-primary-dark);
 }
 
 .bottom{
     display:flex;
+    align-items:flex-start;
+    border-top:1px solid var(--color-border);
 }
 
 .panel{
     width:50%;
-    padding:10px;
+    padding:8px 10px 10px;
+}
+
+.panel:first-child{
+    border-right:1px solid var(--color-border);
+}
+
+.sales-panel{
+    display:flex;
+    flex-direction:column;
 }
 
 .panelTitle{
-    font-size:18px;
-    margin-bottom:8px;
+    font-size:16px;
+    margin-bottom:6px;
+    color:var(--color-muted);
+    font-weight:bold;
 }
 
 .countValue{
     text-align:center;
-    font-size:52px;
+    font-size:40px;
     font-weight:bold;
-    margin-bottom:10px;
+    margin-bottom:6px;
+    color:var(--color-text);
+    line-height:1.1;
 }
 
 .salesInput{
     width:100%;
-    height:80px;
-    font-size:42px;
+    height:64px;
+    margin-top:118px;
+    font-size:34px;
     text-align:center;
+    border:1px solid var(--color-border);
+    border-radius:8px;
+    color:var(--color-text);
+    background:#fff;
 }
 
 .countButtons{
     display:grid;
     grid-template-columns:1fr 1fr;
+    grid-template-rows:repeat(2, 64px);
     gap:8px;
 }
 
 .countButtons button{
-    font-size:28px;
-    height:70px;
+    font-size:24px;
+    height:auto;
+    border:none;
+    border-radius:8px;
+    background:var(--color-primary);
+    color:#fff;
+    font-weight:bold;
 }
 
 .small{
@@ -175,39 +341,100 @@ body{
 }
 
 .positive{
-    color:#66bb6a;
+    color:var(--color-primary-dark);
+    font-weight:bold;
 }
 
 .negative{
-    color:#ef5350;
+    color:var(--color-danger);
+    font-weight:bold;
 }
 
-.reset-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 12px;
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:calc(358px + env(safe-area-inset-bottom));
+    z-index:2000;
+    transform:translateX(-50%);
+    max-width:calc(100vw - 24px);
+    padding:12px 18px;
+    border-radius:8px;
+    background:#333;
+    color:#fff;
+    font-weight:bold;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.2s ease;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
-.reset-btn {
-    background: transparent;
-    color: #ef5350;
-    border: 1.5px solid #ef5350;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.toast.show{
+    opacity:1;
 }
 
-.reset-btn:hover {
-    background: #ef5350;
-    color: #fff;
-    box-shadow: 0 0 12px rgba(239, 83, 80, 0.4);
+.toast.success{
+    background:var(--color-primary-dark);
 }
 
-.reset-btn:active {
-    transform: scale(0.95);
+.toast.error{
+    background:var(--color-danger);
+}
+
+@media (max-width:420px){
+    body{
+        padding-bottom:calc(370px + env(safe-area-inset-bottom));
+    }
+
+    .main{
+        padding:10px;
+    }
+
+    .card{
+        padding:12px;
+    }
+
+    .hourly{
+        font-size:44px;
+    }
+
+    .time{
+        font-size:28px;
+    }
+
+    .mid{
+        font-size:26px;
+    }
+
+    .distance-grid{
+        gap:8px;
+    }
+
+    .distance-value{
+        font-size:18px;
+    }
+
+    .countButtons{
+        grid-template-rows:repeat(2, 60px);
+    }
+
+    .salesInput{
+        height:60px;
+        margin-top:118px;
+        font-size:30px;
+    }
+
+    .pauseBtn{
+        font-size:22px;
+        padding:12px;
+    }
+
+    .quick-switch-btn{
+        min-height:54px;
+    }
+
+    .toast{
+        bottom:calc(378px + env(safe-area-inset-bottom));
+    }
 }
 </style>
 </head>
@@ -216,23 +443,23 @@ body{
 
 <div class="main">
 
-<div class="reset-container">
-    <button class="reset-btn" onclick="resetStorage()">データをリセット</button>
-</div>
-
-<div class="card">
-<div class="label">経過時間</div>
-<div id="timer" class="time">00:00:00</div>
-</div>
-
-<div class="card">
+<div class="card metrics-card">
+<div class="metrics-grid">
+<div class="metric-main">
 <div class="label">換算時給</div>
 <div id="hourlyRate" class="hourly">0円/h</div>
 </div>
 
-<div class="card">
+<div class="metric-sub">
 <div class="label">件数/h</div>
 <div id="countRate" class="mid">0.00件/h</div>
+</div>
+
+<div class="metric-sub">
+<div class="label">経過時間</div>
+<div id="timer" class="time">00:00:00</div>
+</div>
+</div>
 </div>
 
 <div class="card">
@@ -249,6 +476,51 @@ body{
 <div id="forecastCount" class="value"></div>
 </div>
 
+<div class="card">
+<div class="label">現在メーター距離（km）</div>
+<input
+id="currentOdometer"
+class="inline-input"
+type="number"
+step="0.1"
+inputmode="decimal">
+
+<div class="distance-grid">
+<div class="distance-item wide">
+<div class="label">稼働中走行距離</div>
+<div id="distanceKm" class="distance-value">-</div>
+<div id="projectedDistance" class="distance-note"></div>
+</div>
+
+<div class="distance-item">
+<div class="label">1件あたり</div>
+<div id="distancePerDelivery" class="distance-value">-</div>
+</div>
+
+<div class="distance-item">
+<div class="label">稼働km単価</div>
+<div id="salesPerKm" class="distance-value">-</div>
+</div>
+
+<div class="distance-item">
+<div class="label">1件あたり時間</div>
+<div id="minutesPerDelivery" class="distance-value">-</div>
+</div>
+
+<div class="distance-item">
+<div class="label">平均速度</div>
+<div id="averageSpeed" class="distance-value">-</div>
+</div>
+
+<div class="distance-item wide">
+<div class="label">kmあたり時間</div>
+<div id="minutesPerKm" class="distance-value">-</div>
+</div>
+</div>
+
+<button class="importBtn" onclick="saveImportForSumureco()">スムレコに反映</button>
+</div>
+
 <div class="card settings">
 
 <div class="label">目標時給</div>
@@ -260,11 +532,20 @@ body{
 <div class="label">予定稼働時間</div>
 <input id="plannedHours" type="number" step="0.1">
 
+<div class="label">開始メーター距離（km）</div>
+<input id="startOdometer" type="number" step="0.1" inputmode="decimal">
+
+<div class="reset-container">
+    <button class="reset-btn" onclick="resetStorage()">データをリセット</button>
+</div>
+
 <button class="startBtn" onclick="startWork()">稼働開始</button>
 
 </div>
 
 </div>
+
+<div class="toast" id="toast"></div>
 
 <div class="fixedArea">
 
@@ -292,7 +573,7 @@ class="countValue">0</div>
 
 </div>
 
-<div class="panel">
+<div class="panel sales-panel">
 
 <div class="panelTitle">売上</div>
 
@@ -316,6 +597,7 @@ inputmode="numeric">
 <script>
 
 const STORAGE_KEY = "delivery_pace_v3";
+const IMPORT_KEY = "sumureco.importFromPace.v1";
 
 let state = {
     startTime:null,
@@ -326,7 +608,9 @@ let state = {
     sales:0,
     targetHourly:0,
     targetCount:0,
-    plannedHours:0
+    plannedHours:0,
+    startOdometer:0,
+    currentOdometer:0
 };
 
 function resetStorage(){
@@ -341,15 +625,81 @@ function resetStorage(){
             sales:0,
             targetHourly:0,
             targetCount:0,
-            plannedHours:0
+            plannedHours:0,
+            startOdometer:0,
+            currentOdometer:0
         };
         sales.value = "";
         targetHourly.value = "";
         targetCount.value = "";
         plannedHours.value = "";
+        startOdometer.value = "";
+        currentOdometer.value = "";
         countDisplay.textContent = "0";
         updatePauseButton();
         update();
+        showToast("データをリセットしました");
+    }
+}
+
+function showToast(message, type = "success"){
+    const toast =
+        document.getElementById("toast");
+
+    if(!toast){
+        return;
+    }
+
+    toast.textContent = message;
+    toast.className =
+        "toast " + type + " show";
+
+    setTimeout(
+        () => {
+            toast.classList.remove("show");
+        },
+        1800
+    );
+}
+
+function saveImportForSumureco(){
+    const elapsed =
+        getElapsedMs();
+
+    const start =
+        Number(startOdometer.value)||0;
+
+    const current =
+        Number(currentOdometer.value)||0;
+
+    const distance =
+        current > start
+        ? current - start
+        : 0;
+
+    const payload = {
+        source:"pace",
+        workMinutes:Math.round(elapsed / 60000),
+        deliveries:state.count || 0,
+        sales:Number(sales.value)||0,
+        startOdometer:start,
+        endOdometer:current,
+        distanceKm:Number(distance.toFixed(1)),
+        createdAt:new Date().toISOString()
+    };
+
+    try{
+        localStorage.setItem(
+            IMPORT_KEY,
+            JSON.stringify(payload)
+        );
+
+        showToast("スムレコに反映しました");
+    }catch(e){
+        showToast(
+            "反映データを保存できませんでした",
+            "error"
+        );
     }
 }
 
@@ -358,6 +708,8 @@ function saveState(){
     state.targetHourly = Number(targetHourly.value)||0;
     state.targetCount = Number(targetCount.value)||0;
     state.plannedHours = Number(plannedHours.value)||0;
+    state.startOdometer = Number(startOdometer.value)||0;
+    state.currentOdometer = Number(currentOdometer.value)||0;
 
     localStorage.setItem(
         STORAGE_KEY,
@@ -371,7 +723,17 @@ function loadState(){
     localStorage.getItem(STORAGE_KEY);
 
     if(data){
-        state = JSON.parse(data);
+        try{
+            state = {
+                ...state,
+                ...JSON.parse(data)
+            };
+        }catch(e){
+            showToast(
+                "保存データを読み込めませんでした",
+                "error"
+            );
+        }
     }
 
     sales.value = state.sales || "";
@@ -383,6 +745,12 @@ function loadState(){
 
     plannedHours.value =
         state.plannedHours || "";
+
+    startOdometer.value =
+        state.startOdometer || "";
+
+    currentOdometer.value =
+        state.currentOdometer || "";
 
     countDisplay.textContent =
         state.count || 0;
@@ -555,7 +923,105 @@ function update(){
         countPerHour
     );
 
+    updateDistanceMetrics(
+        elapsed,
+        hours,
+        sale,
+        count
+    );
+
     saveState();
+}
+
+function formatOneDecimal(value, unit){
+    if(
+        !Number.isFinite(value)
+        || value <= 0
+    ){
+        return "-";
+    }
+
+    return value.toFixed(1) + unit;
+}
+
+function updateDistanceMetrics(
+    elapsed,
+    hours,
+    sale,
+    count
+){
+    const start =
+        Number(startOdometer.value)||0;
+
+    const current =
+        Number(currentOdometer.value)||0;
+
+    const distance =
+        current > start
+        ? current - start
+        : 0;
+
+    const minutes =
+        elapsed / 60000;
+
+    distanceKm.textContent =
+        formatOneDecimal(
+            distance,
+            "km"
+        );
+
+    distancePerDelivery.textContent =
+        formatOneDecimal(
+            count > 0
+            ? distance / count
+            : 0,
+            "km/件"
+        );
+
+    salesPerKm.textContent =
+        formatOneDecimal(
+            distance > 0
+            ? sale / distance
+            : 0,
+            "円/km"
+        );
+
+    minutesPerDelivery.textContent =
+        formatOneDecimal(
+            count > 0
+            ? minutes / count
+            : 0,
+            "分/件"
+        );
+
+    averageSpeed.textContent =
+        formatOneDecimal(
+            hours > 0
+            ? distance / hours
+            : 0,
+            "km/h"
+        );
+
+    minutesPerKm.textContent =
+        formatOneDecimal(
+            distance > 0
+            ? minutes / distance
+            : 0,
+            "分/km"
+        );
+
+    const planned =
+        Number(plannedHours.value)||0;
+
+    projectedDistance.textContent =
+        distance > 0
+        && hours > 0
+        && planned > 0
+        ? "予定終了時: "
+            + (distance / hours * planned)
+                .toFixed(1)
+            + "km"
+        : "";
 }
 
 function updateGoals(
@@ -651,7 +1117,9 @@ function updateForecast(
 sales,
 targetHourly,
 targetCount,
-plannedHours
+plannedHours,
+startOdometer,
+currentOdometer
 ].forEach(el=>{
 
     el.addEventListener(
