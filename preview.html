@@ -32,7 +32,7 @@ body{
     background:var(--color-bg);
     color:var(--color-text);
     line-height:1.5;
-    padding-bottom:calc(380px + env(safe-area-inset-bottom));
+    padding-bottom:calc(408px + env(safe-area-inset-bottom));
 }
 
 body.inputs-collapsed{
@@ -81,6 +81,12 @@ body.inputs-collapsed{
     padding-top:4px;
 }
 
+.metric-sub.wide{
+    grid-column:1 / -1;
+    padding-top:8px;
+    border-top:1px solid var(--color-border);
+}
+
 .time{
     font-size:34px;
     font-weight:bold;
@@ -107,6 +113,47 @@ body.inputs-collapsed{
     color:var(--color-text);
 }
 
+.metric-breakdown{
+    margin-top:8px;
+    color:var(--color-muted);
+    font-size:15px;
+    line-height:1.5;
+}
+
+.summary-card{
+    border:2px solid var(--color-primary);
+}
+
+.summary-title{
+    color:var(--color-primary-dark);
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.summary-item{
+    background:var(--color-surface);
+    border-radius:8px;
+    padding:10px;
+}
+
+.summary-item.wide{
+    grid-column:1 / -1;
+}
+
+.summary-value{
+    color:var(--color-text);
+    font-size:20px;
+    font-weight:bold;
+    line-height:1.3;
+}
+
 .settings input{
     width:100%;
     font-size:22px;
@@ -117,6 +164,28 @@ body.inputs-collapsed{
     color:var(--color-text);
     background:#fff;
     text-align:right;
+}
+
+.settings input::placeholder{
+    color:#a8b3a8;
+    font-size:14px;
+    font-weight:normal;
+    opacity:1;
+}
+
+.settings-title{
+    color:var(--color-primary-dark);
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.baseline-grid input{
+    font-size:20px;
+}
+
+.baseline-grid input::placeholder{
+    text-align:left;
 }
 
 .elapsed-edit{
@@ -149,12 +218,13 @@ body.inputs-collapsed{
 }
 
 .elapsedApplyBtn{
+    min-height:44px;
     width:100%;
-    font-size:18px;
-    padding:12px;
+    font-size:15px;
+    padding:10px;
     border:none;
-    border-radius:10px;
-    background:var(--color-primary-dark);
+    border-radius:8px;
+    background:var(--color-primary);
     color:#fff;
     font-weight:bold;
     margin-bottom:12px;
@@ -174,6 +244,7 @@ body.inputs-collapsed{
 
 .settings input:focus,
 .salesInput:focus,
+.countInput:focus,
 .odometerInput:focus,
 .inline-input:focus{
     outline:2px solid var(--color-primary);
@@ -190,6 +261,49 @@ body.inputs-collapsed{
     color:var(--color-muted);
     font-size:13px;
     margin:-4px 0 12px;
+}
+
+.correction-box{
+    margin:12px 0;
+    padding:12px;
+    background:var(--color-surface);
+    border:1px solid var(--color-border);
+    border-radius:10px;
+}
+
+.correction-box .baseline-grid input,
+.correction-box .elapsed-edit input{
+    background:#fff;
+}
+
+.fouram-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.fouram-btn{
+    min-height:44px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:var(--color-primary);
+    color:#fff;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.fouram-btn.secondary{
+    background:#fff;
+    color:var(--color-danger);
+    border:2px solid var(--color-danger);
+}
+
+.fouram-status{
+    color:var(--color-primary-dark);
+    font-size:13px;
+    font-weight:bold;
+    margin-top:8px;
 }
 
 .distance-grid{
@@ -222,7 +336,7 @@ body.inputs-collapsed{
     margin-top:4px;
 }
 
-.startBtn{
+.workToggleBtn{
     width:100%;
     font-size:24px;
     padding:14px;
@@ -231,6 +345,34 @@ body.inputs-collapsed{
     background:var(--color-primary);
     color:#fff;
     font-weight:bold;
+}
+
+.workToggleBtn.ended{
+    background:var(--color-primary);
+}
+
+.endedActions{
+    margin-top:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.endedActionBtn{
+    min-height:44px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:var(--color-primary);
+    color:#fff;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.endedActionBtn.secondary{
+    background:#fff;
+    color:var(--color-primary-dark);
+    border:2px solid var(--color-primary);
 }
 
 .importBtn{
@@ -262,8 +404,11 @@ body.inputs-collapsed{
 }
 
 .reset-btn:active,
-.startBtn:active,
+.workToggleBtn:active,
+.endedActionBtn:active,
 .importBtn:active,
+.elapsedApplyBtn:active,
+.fouram-btn:active,
 .countButtons button:active,
 .pauseBtn:active{
     transform:scale(0.98);
@@ -348,54 +493,88 @@ body.inputs-collapsed .inputArea{
 }
 
 .bottom{
-    display:flex;
-    align-items:flex-start;
+    display:block;
     border-top:1px solid var(--color-border);
+    padding:10px;
 }
 
-.panel{
-    width:33.333%;
-    padding:8px 10px 10px;
+.inputGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    align-items:stretch;
 }
 
-.panel:not(:last-child){
-    border-right:1px solid var(--color-border);
+.inputColumn{
+    display:grid;
+    grid-template-rows:auto minmax(104px, 1fr);
+    gap:10px;
+    min-width:0;
 }
 
-.sales-panel{
+.inputSection{
+    margin-bottom:10px;
+}
+
+.inputSection:last-child{
+    margin-bottom:0;
+}
+
+.inputSectionTitle{
+    color:var(--color-muted);
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.inputSectionTitle.hiddenLabel{
+    visibility:hidden;
+}
+
+.inputUnitWrap{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px;
+    align-items:center;
+}
+
+.inputUnit{
+    color:var(--color-muted);
+    font-size:16px;
+    font-weight:bold;
+}
+
+.countSalesGrid{
+    display:grid;
+    grid-template-columns:0.82fr 1.18fr;
+    gap:10px;
+}
+
+.countButtonsSection{
     display:flex;
     flex-direction:column;
+    justify-content:flex-end;
 }
 
-.panelTitle{
-    font-size:16px;
-    margin-bottom:6px;
+.salesAlignSection{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+}
+
+.fieldLabel{
     color:var(--color-muted);
+    font-size:13px;
     font-weight:bold;
-}
-
-.panelHint{
-    font-size:12px;
-    color:var(--color-muted);
-    margin-top:-2px;
-    margin-bottom:6px;
-    line-height:1.3;
-}
-
-.countValue{
-    text-align:center;
-    font-size:34px;
-    font-weight:bold;
-    margin-bottom:6px;
-    color:var(--color-text);
-    line-height:1.1;
+    margin-bottom:4px;
 }
 
 .salesInput,
+.countInput,
 .odometerInput{
     width:100%;
-    height:64px;
-    font-size:26px;
+    height:50px;
+    font-size:24px;
     text-align:center;
     border:1px solid var(--color-border);
     border-radius:8px;
@@ -406,18 +585,23 @@ body.inputs-collapsed .inputArea{
 .countButtons{
     display:grid;
     grid-template-columns:1fr 1fr;
-    grid-template-rows:repeat(2, 54px);
     gap:8px;
 }
 
 .countButtons button{
-    font-size:20px;
-    height:auto;
+    min-height:48px;
+    font-size:18px;
     border:none;
     border-radius:8px;
     background:var(--color-primary);
     color:#fff;
     font-weight:bold;
+}
+
+.countButtons .minus{
+    background:#fff;
+    color:var(--color-danger);
+    border:2px solid var(--color-danger);
 }
 
 .small{
@@ -433,6 +617,10 @@ body.inputs-collapsed .inputArea{
 .negative{
     color:var(--color-danger);
     font-weight:bold;
+}
+
+.hidden{
+    display:none !important;
 }
 
 .toast{
@@ -471,7 +659,7 @@ body.inputs-collapsed .toast{
 
 @media (max-width:420px){
     body{
-        padding-bottom:calc(370px + env(safe-area-inset-bottom));
+        padding-bottom:calc(400px + env(safe-area-inset-bottom));
     }
 
     body.inputs-collapsed{
@@ -506,13 +694,10 @@ body.inputs-collapsed .toast{
         font-size:18px;
     }
 
-    .countButtons{
-        grid-template-rows:repeat(2, 52px);
-    }
-
 .salesInput,
+    .countInput,
     .odometerInput{
-        height:60px;
+        height:48px;
         font-size:22px;
     }
 
@@ -540,6 +725,59 @@ body.inputs-collapsed .toast{
 
 <div class="main">
 
+<div id="endSummaryCard" class="card summary-card hidden">
+<div class="summary-title">終了サマリー</div>
+
+<div class="summary-grid">
+<div class="summary-item">
+<div class="label">稼働時間</div>
+<div id="summaryElapsed" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">件数</div>
+<div id="summaryCount" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">売上</div>
+<div id="summarySales" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">換算時給</div>
+<div id="summaryHourly" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">件数/h</div>
+<div id="summaryCountRate" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">走行距離</div>
+<div id="summaryDistance" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">km単価</div>
+<div id="summarySalesPerKm" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">1件あたり距離</div>
+<div id="summaryDistancePerDelivery" class="summary-value">-</div>
+</div>
+
+<div class="summary-item">
+<div class="label">1件あたり時間</div>
+<div id="summaryMinutesPerDelivery" class="summary-value">-</div>
+</div>
+</div>
+
+<button class="importBtn" onclick="saveImportForSumureco()">この結果をスムレコに反映</button>
+</div>
+
 <div class="card metrics-card">
 <div class="metrics-grid">
 <div class="metric-main">
@@ -555,6 +793,12 @@ body.inputs-collapsed .toast{
 <div class="metric-sub">
 <div class="label">経過時間</div>
 <div id="timer" class="time">00:00:00</div>
+</div>
+
+<div class="metric-sub wide">
+<div class="label">差引後実績</div>
+<div id="effectiveSummary" class="mid">0件 / 0円</div>
+<div id="fourAMBreakdown" class="metric-breakdown"></div>
 </div>
 </div>
 </div>
@@ -607,10 +851,10 @@ body.inputs-collapsed .toast{
 </div>
 </div>
 
-<button class="importBtn" onclick="saveImportForSumureco()">スムレコに反映</button>
 </div>
 
 <div class="card settings">
+<div class="settings-title">目標設定</div>
 
 <div class="label">目標時給</div>
 <input id="targetHourly" type="number">
@@ -621,7 +865,16 @@ body.inputs-collapsed .toast{
 <div class="label">予定稼働時間</div>
 <input id="plannedHours" type="number" step="0.1">
 
-<div class="label">経過時間を編集</div>
+<div class="label">開始メーター距離（km）</div>
+<input id="startOdometer" type="number" step="0.1" inputmode="decimal">
+
+</div>
+
+<div class="card settings">
+<div class="settings-title">補正とリセット</div>
+
+<div class="correction-box">
+<div class="label">経過時間を修正</div>
 <div class="elapsed-edit">
     <div class="elapsed-unit">
         <input id="elapsedHours" type="number" min="0" step="1" inputmode="numeric">
@@ -633,22 +886,51 @@ body.inputs-collapsed .toast{
     </div>
 </div>
 <button class="elapsedApplyBtn" onclick="applyElapsedEdit()">経過時間を反映</button>
+</div>
 
-<div class="label">開始メーター距離（km）</div>
-<input id="startOdometer" type="number" step="0.1" inputmode="decimal">
-
-<div class="label">開始時の件数・売上</div>
+<div class="correction-box">
+<div class="label">開始時にアプリに残っている数値</div>
 <div class="baseline-grid">
     <input id="startCount" type="number" min="0" step="1" inputmode="numeric" placeholder="件数">
     <input id="startSales" type="number" min="0" step="1" inputmode="numeric" placeholder="売上">
 </div>
-<div class="baseline-note">配達アプリに残っている朝4時以降の累計分を差し引きます。</div>
+<div class="baseline-note">現在入力した件数・売上から、この開始時数値を毎回差し引きます。</div>
+</div>
+
+<div class="correction-box">
+<div class="label">4時跨ぎ補正</div>
+<div class="baseline-note">4時以降に、配達アプリで確認できる前日分の件数・売上を入力します。</div>
+<div class="baseline-grid">
+    <input id="beforeFourFinalCount" type="number" min="0" step="1" inputmode="numeric" placeholder="4時までの確定件数">
+    <input id="beforeFourFinalSales" type="number" min="0" step="1" inputmode="numeric" placeholder="4時までの確定売上">
+</div>
+<div class="fouram-actions">
+    <button class="fouram-btn" type="button" onclick="confirmFourAM()">4時跨ぎを確定</button>
+    <button class="fouram-btn secondary" type="button" onclick="clearFourAM()">4時跨ぎを解除</button>
+</div>
+<div id="fourAMStatus" class="fouram-status"></div>
+</div>
 
 <div class="reset-container">
     <button class="reset-btn" onclick="resetStorage()">データをリセット</button>
 </div>
 
-<button class="startBtn" onclick="startWork()">稼働開始</button>
+</div>
+
+<div class="card settings">
+<div class="settings-title">稼働開始/終了</div>
+
+<button id="workToggleBtn"
+class="workToggleBtn"
+type="button"
+onclick="handleWorkToggle()">
+稼働開始
+</button>
+
+<div id="endedActions" class="endedActions hidden">
+    <button class="endedActionBtn" type="button" onclick="resumeEndedWork()">稼働再開</button>
+    <button class="endedActionBtn secondary" type="button" onclick="startNewWork()">新規稼働開始</button>
+</div>
 
 </div>
 
@@ -668,23 +950,36 @@ onclick="togglePause()">
 class="inputToggleBtn"
 type="button"
 onclick="toggleInputArea()">
-入力欄を隠す
+最小表示
 </button>
 
 <div id="inputArea" class="inputArea">
 
 <div class="bottom">
 
-<div class="panel">
+<div class="inputGrid">
 
-<div class="panelTitle">件数</div>
-<div class="panelHint">差引後</div>
+<div class="inputColumn">
 
-<div id="countDisplay"
-class="countValue">0</div>
+<div class="inputSection">
+<div class="fieldLabel">件数（アプリ表示）</div>
+<div class="inputUnitWrap">
+<input
+id="currentCount"
+class="countInput"
+type="number"
+min="0"
+step="1"
+inputmode="numeric">
+<span class="inputUnit">件</span>
+</div>
+</div>
+
+<div class="inputSection countButtonsSection">
+<div class="inputSectionTitle">件数補助</div>
 
 <div class="countButtons">
-<button onclick="changeCount(-1)">-1</button>
+<button class="minus" onclick="changeCount(-1)">-1</button>
 <button onclick="changeCount(1)">+1</button>
 <button onclick="changeCount(5)">+5</button>
 <button onclick="changeCount(10)">+10</button>
@@ -692,30 +987,40 @@ class="countValue">0</div>
 
 </div>
 
-<div class="panel sales-panel">
-
-<div class="panelTitle">売上</div>
-<div class="panelHint">アプリ表示</div>
-
-<input
-id="sales"
-class="salesInput"
-type="number"
-inputmode="numeric">
-
 </div>
 
-<div class="panel">
+<div class="inputColumn">
 
-<div class="panelTitle">現在km</div>
-<div class="panelHint">メーター</div>
+<div class="inputSection">
+<div class="fieldLabel">現在距離</div>
 
+<div class="inputUnitWrap">
 <input
 id="currentOdometer"
 class="odometerInput"
 type="number"
 step="0.1"
 inputmode="decimal">
+<span class="inputUnit">km</span>
+</div>
+
+</div>
+
+<div class="inputSection salesAlignSection">
+<div class="fieldLabel">売上（アプリ表示）</div>
+<div class="inputUnitWrap">
+<input
+id="sales"
+class="salesInput"
+type="number"
+min="0"
+step="1"
+inputmode="numeric">
+<span class="inputUnit">円</span>
+</div>
+</div>
+
+</div>
 
 </div>
 
@@ -737,10 +1042,13 @@ const IMPORT_KEY = "sumureco.importFromPace.v1";
 
 let state = {
     startTime:null,
+    endTime:null,
+    ended:false,
     paused:false,
     pauseStart:null,
     pausedTotal:0,
     count:0,
+    currentCount:0,
     sales:0,
     targetHourly:0,
     targetCount:0,
@@ -749,6 +1057,9 @@ let state = {
     currentOdometer:0,
     startCount:0,
     startSales:0,
+    beforeFourFinalCount:0,
+    beforeFourFinalSales:0,
+    fourAMConfirmed:false,
     inputsCollapsed:false
 };
 
@@ -757,10 +1068,13 @@ function resetStorage(){
         localStorage.removeItem(STORAGE_KEY);
         state = {
             startTime:null,
+            endTime:null,
+            ended:false,
             paused:false,
             pauseStart:null,
             pausedTotal:0,
             count:0,
+            currentCount:0,
             sales:0,
             targetHourly:0,
             targetCount:0,
@@ -769,11 +1083,17 @@ function resetStorage(){
             currentOdometer:0,
             startCount:0,
             startSales:0,
+            beforeFourFinalCount:0,
+            beforeFourFinalSales:0,
+            fourAMConfirmed:false,
             inputsCollapsed:false
         };
+        currentCount.value = "";
         sales.value = "";
         startCount.value = "";
         startSales.value = "";
+        beforeFourFinalCount.value = "";
+        beforeFourFinalSales.value = "";
         targetHourly.value = "";
         targetCount.value = "";
         plannedHours.value = "";
@@ -781,7 +1101,6 @@ function resetStorage(){
         elapsedMinutes.value = "";
         startOdometer.value = "";
         currentOdometer.value = "";
-        countDisplay.textContent = "0";
         applyInputAreaState();
         updatePauseButton();
         update();
@@ -848,6 +1167,15 @@ function saveImportForSumureco(){
         );
 
         showToast("スムレコに反映しました");
+
+        setTimeout(
+            () => {
+                if(typeof window !== "undefined"){
+                    window.location.href = "./index.html";
+                }
+            },
+            300
+        );
     }catch(e){
         showToast(
             "反映データを保存できませんでした",
@@ -857,9 +1185,13 @@ function saveImportForSumureco(){
 }
 
 function saveState(){
+    state.currentCount = Number(currentCount.value)||0;
+    state.count = state.currentCount;
     state.sales = Number(sales.value)||0;
     state.startCount = Number(startCount.value)||0;
     state.startSales = Number(startSales.value)||0;
+    state.beforeFourFinalCount = Number(beforeFourFinalCount.value)||0;
+    state.beforeFourFinalSales = Number(beforeFourFinalSales.value)||0;
     state.targetHourly = Number(targetHourly.value)||0;
     state.targetCount = Number(targetCount.value)||0;
     state.plannedHours = Number(plannedHours.value)||0;
@@ -897,9 +1229,19 @@ function loadState(){
 
     if(data){
         try{
+            const parsed =
+                JSON.parse(data);
+
+            if(
+                parsed.currentCount == null
+                && parsed.count != null
+            ){
+                parsed.currentCount = parsed.count;
+            }
+
             state = {
                 ...state,
-                ...JSON.parse(data)
+                ...parsed
             };
         }catch(e){
             showToast(
@@ -909,12 +1251,21 @@ function loadState(){
         }
     }
 
+    currentCount.value =
+        state.currentCount || "";
+
     sales.value = state.sales || "";
     startCount.value =
         state.startCount || "";
 
     startSales.value =
         state.startSales || "";
+
+    beforeFourFinalCount.value =
+        state.beforeFourFinalCount || "";
+
+    beforeFourFinalSales.value =
+        state.beforeFourFinalSales || "";
 
     targetHourly.value =
         state.targetHourly || "";
@@ -931,9 +1282,6 @@ function loadState(){
     currentOdometer.value =
         state.currentOdometer || "";
 
-    countDisplay.textContent =
-        getEffectiveCount();
-
     setElapsedInputs(
         getElapsedMs()
     );
@@ -942,15 +1290,127 @@ function loadState(){
     updatePauseButton();
 }
 
+function scrollToTop(){
+    if(
+        typeof window === "undefined"
+        || typeof window.scrollTo !== "function"
+    ){
+        return;
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
 function startWork(){
 
-    if(state.startTime){
+    if(state.startTime && !state.ended){
         return;
     }
 
     state.startTime = Date.now();
+    state.endTime = null;
+    state.ended = false;
+    state.paused = false;
+    state.pauseStart = null;
+    state.pausedTotal = 0;
+    state.inputsCollapsed = false;
 
+    applyInputAreaState();
+    updatePauseButton();
     saveState();
+    update();
+    scrollToTop();
+}
+
+function handleWorkToggle(){
+    if(!state.startTime){
+        startWork();
+        return;
+    }
+
+    if(!state.ended){
+        if(confirm("稼働を終了しますか？")){
+            endWork();
+        }
+        return;
+    }
+}
+
+function resumeEndedWork(){
+    if(!state.startTime || !state.ended){
+        return;
+    }
+
+    state.endTime = null;
+    state.ended = false;
+    state.paused = false;
+    state.pauseStart = null;
+    state.inputsCollapsed = false;
+
+    applyInputAreaState();
+    updatePauseButton();
+    saveState();
+    update();
+    scrollToTop();
+    showToast("稼働を再開しました");
+}
+
+function startNewWork(){
+    const keepTargetHourly =
+        Number(targetHourly.value)||0;
+
+    const keepTargetCount =
+        Number(targetCount.value)||0;
+
+    const keepPlannedHours =
+        Number(plannedHours.value)||0;
+
+    state.startTime = null;
+    state.endTime = null;
+    state.ended = false;
+    state.paused = false;
+    state.pauseStart = null;
+    state.pausedTotal = 0;
+    state.count = 0;
+    state.currentCount = 0;
+    state.sales = 0;
+    state.startOdometer = 0;
+    state.currentOdometer = 0;
+    state.startCount = 0;
+    state.startSales = 0;
+    state.beforeFourFinalCount = 0;
+    state.beforeFourFinalSales = 0;
+    state.fourAMConfirmed = false;
+    state.inputsCollapsed = false;
+    state.targetHourly = keepTargetHourly;
+    state.targetCount = keepTargetCount;
+    state.plannedHours = keepPlannedHours;
+
+    currentCount.value = "";
+    sales.value = "";
+    startCount.value = "";
+    startSales.value = "";
+    beforeFourFinalCount.value = "";
+    beforeFourFinalSales.value = "";
+    elapsedHours.value = "";
+    elapsedMinutes.value = "";
+    startOdometer.value = "";
+    currentOdometer.value = "";
+
+    targetHourly.value =
+        keepTargetHourly || "";
+
+    targetCount.value =
+        keepTargetCount || "";
+
+    plannedHours.value =
+        keepPlannedHours || "";
+
+    startWork();
+    showToast("新規の稼働を開始しました");
 }
 
 function applyElapsedEdit(){
@@ -991,6 +1451,10 @@ function applyElapsedEdit(){
         - currentPause
         - totalMinutes * 60000;
 
+    state.endTime = null;
+    state.ended = false;
+
+    updatePauseButton();
     saveState();
     update();
     setElapsedInputs(
@@ -1001,7 +1465,7 @@ function applyElapsedEdit(){
 
 function togglePause(){
 
-    if(!state.startTime){
+    if(!state.startTime || state.ended){
         return;
     }
 
@@ -1027,10 +1491,66 @@ function togglePause(){
     saveState();
 }
 
+function endWork(){
+
+    if(!state.startTime || state.ended){
+        return;
+    }
+
+    const now =
+        Date.now();
+
+    if(state.paused && state.pauseStart){
+        state.pausedTotal +=
+            now - state.pauseStart;
+    }
+
+    state.endTime = now;
+    state.ended = true;
+    state.paused = false;
+    state.pauseStart = null;
+    state.inputsCollapsed = true;
+
+    applyInputAreaState();
+    updatePauseButton();
+    saveState();
+    update();
+    showToast("稼働を終了しました");
+}
+
 function updatePauseButton(){
 
     const btn =
         document.getElementById("pauseBtn");
+
+    const workBtn =
+        document.getElementById("workToggleBtn");
+
+    const endedActions =
+        document.getElementById("endedActions");
+
+    if(state.ended){
+        btn.textContent =
+            "終了済み";
+
+        btn.className =
+            "pauseBtn paused";
+
+        if(workBtn){
+            workBtn.classList.add("hidden");
+        }
+
+        if(endedActions){
+            endedActions.classList.remove("hidden");
+        }
+
+
+        return;
+    }
+
+    if(endedActions){
+        endedActions.classList.add("hidden");
+    }
 
     if(state.paused){
 
@@ -1046,37 +1566,123 @@ function updatePauseButton(){
         btn.className =
             "pauseBtn running";
     }
+
+    if(workBtn){
+        workBtn.classList.remove("hidden");
+
+        workBtn.textContent =
+            state.startTime
+            ? "稼働終了"
+            : "稼働開始";
+
+        workBtn.className =
+            "workToggleBtn";
+    }
 }
 
 function changeCount(amount){
 
-    state.count =
+    const current =
+        Number(currentCount.value)||0;
+
+    const next =
         Math.max(
             0,
-            state.count + amount
+            current + amount
         );
 
-    countDisplay.textContent =
-        getEffectiveCount();
+    currentCount.value =
+        next;
+
+    state.currentCount =
+        next;
+
+    state.count =
+        next;
 
     saveState();
     update();
 }
 
 function getEffectiveCount(){
-    return Math.max(
-        0,
-        (Number(state.count)||0)
-        - (Number(startCount.value)||0)
-    );
+    return getEffectiveValues().count;
 }
 
 function getEffectiveSales(){
-    return Math.max(
-        0,
-        (Number(sales.value)||0)
-        - (Number(startSales.value)||0)
-    );
+    return getEffectiveValues().sales;
+}
+
+function getEffectiveValues(){
+    const currentCountValue =
+        Number(currentCount.value)||0;
+
+    const currentSalesValue =
+        Number(sales.value)||0;
+
+    const startCountValue =
+        Number(startCount.value)||0;
+
+    const startSalesValue =
+        Number(startSales.value)||0;
+
+    if(state.fourAMConfirmed){
+        const beforeCount =
+            Math.max(
+                0,
+                (Number(beforeFourFinalCount.value)||0)
+                - startCountValue
+            );
+
+        const beforeSales =
+            Math.max(
+                0,
+                (Number(beforeFourFinalSales.value)||0)
+                - startSalesValue
+            );
+
+        return {
+            count:beforeCount + Math.max(0, currentCountValue),
+            sales:beforeSales + Math.max(0, currentSalesValue),
+            beforeCount,
+            beforeSales,
+            afterCount:Math.max(0, currentCountValue),
+            afterSales:Math.max(0, currentSalesValue)
+        };
+    }
+
+    return {
+        count:Math.max(0, currentCountValue - startCountValue),
+        sales:Math.max(0, currentSalesValue - startSalesValue),
+        beforeCount:0,
+        beforeSales:0,
+        afterCount:0,
+        afterSales:0
+    };
+}
+
+function confirmFourAM(){
+    state.fourAMConfirmed = true;
+    state.beforeFourFinalCount =
+        Number(beforeFourFinalCount.value)||0;
+    state.beforeFourFinalSales =
+        Number(beforeFourFinalSales.value)||0;
+
+    saveState();
+    update();
+    showToast("4時跨ぎ補正を確定しました");
+}
+
+function clearFourAM(){
+    state.fourAMConfirmed = false;
+    state.beforeFourFinalCount = 0;
+    state.beforeFourFinalSales = 0;
+
+    beforeFourFinalCount.value = "";
+    beforeFourFinalSales.value = "";
+
+    saveState();
+    update();
+    showToast("4時跨ぎ補正を解除しました");
 }
 
 function toggleInputArea(){
@@ -1099,8 +1705,8 @@ function applyInputAreaState(){
     if(btn){
         btn.textContent =
             state.inputsCollapsed
-            ? "入力欄を表示"
-            : "入力欄を隠す";
+            ? "詳細入力"
+            : "最小表示";
     }
 }
 
@@ -1110,10 +1716,15 @@ function getElapsedMs(){
         return 0;
     }
 
-    const now = Date.now();
+    const now =
+        state.ended && state.endTime
+        ? state.endTime
+        : Date.now();
 
     const currentPause =
         state.paused
+        && state.pauseStart
+        && !state.ended
         ? now - state.pauseStart
         : 0;
 
@@ -1165,8 +1776,34 @@ function update(){
     const count =
         getEffectiveCount();
 
-    countDisplay.textContent =
-        count;
+    const effective =
+        getEffectiveValues();
+
+    effectiveSummary.textContent =
+        count.toLocaleString()
+        + "件 / "
+        + Math.round(sale).toLocaleString()
+        + "円";
+
+    if(state.fourAMConfirmed){
+        fourAMBreakdown.innerHTML =
+            "4時まで "
+            + effective.beforeCount.toLocaleString()
+            + "件 / "
+            + Math.round(effective.beforeSales).toLocaleString()
+            + "円<br>4時以降 "
+            + effective.afterCount.toLocaleString()
+            + "件 / "
+            + Math.round(effective.afterSales).toLocaleString()
+            + "円";
+    }else{
+        fourAMBreakdown.textContent = "";
+    }
+
+    fourAMStatus.textContent =
+        state.fourAMConfirmed
+        ? "4時跨ぎ補正中"
+        : "";
 
     const hourly =
         hours>0
@@ -1204,7 +1841,100 @@ function update(){
         count
     );
 
+    updateEndSummary(
+        elapsed,
+        hours,
+        sale,
+        count,
+        hourly,
+        countPerHour
+    );
+
     saveState();
+}
+
+function updateEndSummary(
+    elapsed,
+    hours,
+    sale,
+    count,
+    hourly,
+    countPerHour
+){
+    const card =
+        document.getElementById("endSummaryCard");
+
+    if(!card){
+        return;
+    }
+
+    card.classList.toggle(
+        "hidden",
+        !state.ended
+    );
+
+    if(!state.ended){
+        return;
+    }
+
+    const start =
+        Number(startOdometer.value)||0;
+
+    const current =
+        Number(currentOdometer.value)||0;
+
+    const distance =
+        current > start
+        ? current - start
+        : 0;
+
+    summaryElapsed.textContent =
+        formatTime(elapsed);
+
+    summaryCount.textContent =
+        count.toLocaleString() + "件";
+
+    summarySales.textContent =
+        Math.round(sale).toLocaleString()
+        + "円";
+
+    summaryHourly.textContent =
+        Math.round(hourly).toLocaleString()
+        + "円/h";
+
+    summaryCountRate.textContent =
+        countPerHour.toFixed(2)
+        + "件/h";
+
+    summaryDistance.textContent =
+        formatOneDecimal(
+            distance,
+            "km"
+        );
+
+    summarySalesPerKm.textContent =
+        formatOneDecimal(
+            distance > 0
+            ? sale / distance
+            : 0,
+            "円/km"
+        );
+
+    summaryDistancePerDelivery.textContent =
+        formatOneDecimal(
+            count > 0
+            ? distance / count
+            : 0,
+            "km/件"
+        );
+
+    summaryMinutesPerDelivery.textContent =
+        formatOneDecimal(
+            count > 0
+            ? (elapsed / 60000) / count
+            : 0,
+            "分/件"
+        );
 }
 
 function formatOneDecimal(value, unit){
@@ -1388,9 +2118,12 @@ function updateForecast(
 }
 
 [
+currentCount,
 sales,
 startCount,
 startSales,
+beforeFourFinalCount,
+beforeFourFinalSales,
 targetHourly,
 targetCount,
 plannedHours,
