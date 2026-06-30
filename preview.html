@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4caf50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="スム配達">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../sumureco/smrc-icon.png">
 
 <title>配達ペースチェッカー</title>
 
@@ -885,20 +890,20 @@ body.inputs-collapsed .toast{
         <span>分</span>
     </div>
 </div>
-<button class="elapsedApplyBtn" onclick="applyElapsedEdit()">経過時間を反映</button>
+<button class="elapsedApplyBtn" onclick="applyElapsedEdit()">経過時間を修正</button>
 </div>
 
 <div class="correction-box">
-<div class="label">開始時にアプリに残っている数値</div>
+<div class="label">稼働開始時のアプリ表示</div>
 <div class="baseline-grid">
     <input id="startCount" type="number" min="0" step="1" inputmode="numeric" placeholder="件数">
     <input id="startSales" type="number" min="0" step="1" inputmode="numeric" placeholder="売上">
 </div>
-<div class="baseline-note">現在入力した件数・売上から、この開始時数値を毎回差し引きます。</div>
+<div class="baseline-note">稼働開始時点で配達アプリに表示されている件数・売上を入力します。この分は今回の実績から差し引かれます。</div>
 </div>
 
 <div class="correction-box">
-<div class="label">4時跨ぎ補正</div>
+<div class="label">4時までの確定値</div>
 <div class="baseline-note">4時以降に、配達アプリで確認できる前日分の件数・売上を入力します。</div>
 <div class="baseline-grid">
     <input id="beforeFourFinalCount" type="number" min="0" step="1" inputmode="numeric" placeholder="4時までの確定件数">
@@ -1036,6 +1041,13 @@ inputmode="numeric">
 </div>
 
 <script>
+if("serviceWorker" in navigator){
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("../sw.js", {
+            scope:"/"
+        }).catch(() => {});
+    });
+}
 
 const STORAGE_KEY = "delivery_pace_v3";
 const IMPORT_KEY = "sumureco.importFromPace.v1";
@@ -1460,7 +1472,7 @@ function applyElapsedEdit(){
     setElapsedInputs(
         getElapsedMs()
     );
-    showToast("経過時間を反映しました");
+    showToast("経過時間を修正しました");
 }
 
 function togglePause(){
@@ -1669,7 +1681,7 @@ function confirmFourAM(){
 
     saveState();
     update();
-    showToast("4時跨ぎ補正を確定しました");
+    showToast("4時までの確定値を確定しました");
 }
 
 function clearFourAM(){
@@ -1682,7 +1694,7 @@ function clearFourAM(){
 
     saveState();
     update();
-    showToast("4時跨ぎ補正を解除しました");
+    showToast("4時までの確定値を解除しました");
 }
 
 function toggleInputArea(){
@@ -1802,7 +1814,7 @@ function update(){
 
     fourAMStatus.textContent =
         state.fourAMConfirmed
-        ? "4時跨ぎ補正中"
+        ? "4時までの確定値を反映中"
         : "";
 
     const hourly =
