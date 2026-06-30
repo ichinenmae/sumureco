@@ -28,8 +28,8 @@
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 60px auto 0;
-            /* 上部余白をメニューバーの高さ分確保 */
+            margin: 56px auto 0;
+            /* 上部固定メニューの高さ分だけ確保 */
             background-color: #f5f5f5;
             padding: 10px;
         }
@@ -137,6 +137,19 @@
 
         .form-section label {
             color: #545454;
+        }
+
+        .import-message {
+            display: none;
+            max-width: 400px;
+            margin: 12px auto;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #a5d6a7;
         }
 
         .platform-section {
@@ -373,8 +386,7 @@
             }
 
             .title-image {
-                margin-top: 70px;
-                /* モバイルでは少し高めに */
+                margin-top: 42px;
             }
 
             form {
@@ -409,8 +421,7 @@
 
         @media (max-width: 480px) {
             .title-image {
-                margin-top: 80px;
-                /* 小さい画面では更に高めに */
+                margin-top: 40px;
             }
 
             .nav-buttons {
@@ -431,6 +442,7 @@
     <header>
         <img src="title-image.png" alt="スムレコ 配達効率計算" class="title-image">
     </header>
+    <div id="importMessage" class="import-message"></div>
     <form id="deliveryForm">
 
         <!-- 稼働時間の入力フォーム -->
@@ -552,6 +564,14 @@
             </div>
         </div>
 
+        <div class="form-section" id="distance-section">
+            <h3>稼働中走行距離</h3>
+            <label for="startOdometer">開始メーター距離</label>
+            <input type="number" id="startOdometer" step="0.1" inputmode="decimal" placeholder="km" autocomplete="off">
+            <label for="endOdometer">終了メーター距離</label>
+            <input type="number" id="endOdometer" step="0.1" inputmode="decimal" placeholder="km" autocomplete="off">
+        </div>
+
         <button type="submit" id="calc-button">計算</button>
     </form>
 
@@ -563,6 +583,7 @@
         <button type="button" class="nav-btn nav-rocket" onclick="scrollToSection('rocket-section')">ロケット</button>
         <button type="button" class="nav-btn nav-menu" onclick="scrollToSection('menu-section')">menu</button>
         <button type="button" class="nav-btn nav-other" onclick="scrollToSection('other-section')">その他</button>
+        <button type="button" class="nav-btn nav-distance" onclick="scrollToSection('distance-section')">距離</button>
         <button type="button" class="nav-btn nav-calc" onclick="scrollToSection('calc-button')">計算</button>
     </div>
 
@@ -635,6 +656,80 @@
             }, 100);
         }
 
+        var IMPORT_KEY = 'sumureco.importFromPace.v1';
+
+        function showImportMessage(message) {
+            var el = document.getElementById('importMessage');
+            if (!el) return;
+            el.textContent = message;
+            el.style.display = 'block';
+        }
+
+        function setNumberValue(id, value) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.value = value ? String(value) : '';
+        }
+
+        function importFromPaceIfAvailable() {
+            var raw = localStorage.getItem(IMPORT_KEY);
+            if (!raw) return;
+
+            try {
+                var data = JSON.parse(raw);
+                if (!data || data.source !== 'pace') return;
+
+                var minutes = parseInt(data.workMinutes, 10) || 0;
+                var hours = Math.floor(minutes / 60);
+                var mins = minutes % 60;
+
+                var durationMode = document.querySelector('input[name="timeInputMode"][value="duration"]');
+                if (durationMode) {
+                    durationMode.checked = true;
+                    toggleTimeInputMode();
+                }
+
+                setNumberValue('durationHours', hours);
+                setNumberValue('durationMinutes', mins);
+                setNumberValue('uberDeliveries', data.deliveries || 0);
+                setNumberValue('uberBaseReward', data.sales || 0);
+                setNumberValue('startOdometer', data.startOdometer || 0);
+                setNumberValue('endOdometer', data.endOdometer || 0);
+
+                localStorage.removeItem(IMPORT_KEY);
+                showImportMessage('ペースチェッカーのデータを反映しました');
+            } catch (e) {
+                localStorage.removeItem(IMPORT_KEY);
+                showImportMessage('ペースチェッカーのデータを読み込めませんでした');
+            }
+        }
+
+        function formatOneDecimalText(value, unit) {
+            if (!isFinite(value) || value <= 0) {
+                return '-';
+            }
+
+            return value.toFixed(1) + unit;
+        }
+
+        function buildDistanceResults(totalSales, totalDeliveries, workHours) {
+            var start = parseFloat(document.getElementById('startOdometer').value) || 0;
+            var end = parseFloat(document.getElementById('endOdometer').value) || 0;
+            var distance = end > start ? end - start : 0;
+            var minutes = workHours * 60;
+
+            var html = '<div class="company-section">';
+            html += '<h4>距離効率</h4>';
+            html += '<p>稼働中走行距離: <span class="result-value">' + formatOneDecimalText(distance, 'km') + '</span></p>';
+            html += '<p>1件あたり稼働走行距離: <span class="result-value">' + formatOneDecimalText(totalDeliveries > 0 ? distance / totalDeliveries : 0, 'km/件') + '</span></p>';
+            html += '<p>稼働km単価: <span class="result-value">' + formatOneDecimalText(distance > 0 ? totalSales / distance : 0, '円/km') + '</span></p>';
+            html += '<p>1件あたり時間: <span class="result-value">' + formatOneDecimalText(totalDeliveries > 0 ? minutes / totalDeliveries : 0, '分/件') + '</span></p>';
+            html += '<p>平均速度: <span class="result-value">' + formatOneDecimalText(workHours > 0 ? distance / workHours : 0, 'km/h') + '</span></p>';
+            html += '<p>kmあたり時間: <span class="result-value">' + formatOneDecimalText(distance > 0 ? minutes / distance : 0, '分/km') + '</span></p>';
+            html += '</div>';
+            return html;
+        }
+
         // DOM読み込み完了後の処理
         document.addEventListener('DOMContentLoaded', function () {
             var form = document.getElementById('deliveryForm');
@@ -642,6 +737,8 @@
                 console.error('フォームが見つかりません');
                 return;
             }
+
+            importFromPaceIfAvailable();
 
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -771,6 +868,7 @@
                     resultsHTML += '<span style="font-size: 0.85em; color: #777;">(報酬のみ: ' + formatDecimal(totalDeliveries > 0 ? totalBaseReward / totalDeliveries : 0) + '　円/件)</span></p>';
                     resultsHTML += '<p>配達ペース: <span class="result-value">' + formatDecimal(workHours > 0 ? totalDeliveries / workHours : 0) + '</span>　件/時</p>';
                     resultsHTML += '</div>';
+                    resultsHTML += buildDistanceResults(totalSales, totalDeliveries, workHours);
 
                     // 各プラットフォームの詳細
                     for (var i = 0; i < platformKeys.length; i++) {
