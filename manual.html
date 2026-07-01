@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スムレコ・配達ペースチェッカー 使い方</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;background:#f7faf7;color:#333;line-height:1.8}
+header{background:#2e7d32;color:#fff;padding:24px 18px}
+main{max-width:920px;margin:0 auto;padding:18px}
+h1{font-size:26px;line-height:1.35;margin:0 0 8px}
+h2{font-size:22px;border-left:6px solid #4caf50;padding-left:10px;margin:34px 0 14px}
+h3{font-size:18px;margin:24px 0 8px}
+p{margin:8px 0}
+a{color:#2e7d32;font-weight:bold}
+.lead{font-size:16px;margin:0;color:#eef8ee}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.nav a{background:#fff;color:#2e7d32;text-decoration:none;border-radius:6px;padding:8px 12px}
+.card{background:#fff;border:1px solid #dce8dc;border-radius:8px;padding:16px;margin:14px 0;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.scene{background:#fff;border-radius:8px;border:1px solid #dce8dc;margin:18px 0;padding:16px}
+.shot{margin:14px 0 6px}
+.shot img{width:100%;max-width:390px;border:1px solid #d7dfd7;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.12);display:block}
+.wide img{max-width:720px}
+.caption{font-size:14px;color:#666}
+ol,ul{padding-left:1.4em}
+li{margin:6px 0}
+.note{background:#fff8e1;border-left:6px solid #f9a825;padding:12px 14px;border-radius:6px}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.links a{display:block;text-align:center;background:#4caf50;color:#fff;text-decoration:none;border-radius:8px;padding:12px}
+@media(max-width:640px){main{padding:14px}.links{grid-template-columns:1fr}h1{font-size:23px}.shot img{max-width:100%}}
+</style>
+</head>
+<body>
+<header>
+<h1>スムレコ・配達ペースチェッカー 使い方</h1>
+<p class="lead">配達前、配達中、配達後に何を入力するかを、画面を見ながら確認できます。</p>
+<nav class="nav">
+<a href="#before">配達開始前</a>
+<a href="#working">配達中</a>
+<a href="#correction">補正</a>
+<a href="#after">配達完了後</a>
+<a href="#sumureco">スムレコ集計</a>
+</nav>
+</header>
+
+<main>
+<div class="card">
+<h2>このページでわかること</h2>
+<p>配達ペースチェッカーは、稼働中に「今の売上」「今の件数」「今の距離」を入れて、今のペースを確認する画面です。</p>
+<p>スムレコは、稼働が終わったあとに時間、件数、売上、距離をまとめて、時給や1件あたりの金額を確認する画面です。</p>
+<p>配達中は、画面下の「定型文」と「ペース」で、スムコピと配達ペースチェッカーをすぐ切り替えられます。</p>
+<div class="links">
+<a href="preview.html">配達ペースチェッカーを開く</a>
+<a href="index.html">スムレコを開く</a>
+</div>
+</div>
+
+<section id="before" class="scene">
+<h2>配達開始前：目標と開始時点を入れる</h2>
+<p>配達を始める前に、今日の目標と開始時点の数字を入れます。入力した数字は、あとでペース計算に使われます。</p>
+<div class="shot"><img src="manual-assets/pace-01-start.png" alt="配達ペースチェッカーの開始前画面"></div>
+<p class="caption">上の方に今のペース、下の方に入力欄があります。</p>
+<ol>
+<li>「目標時給」に、今日目指したい時給を入れます。</li>
+<li>「目標件数/h」に、1時間あたり何件を目指すか入れます。</li>
+<li>「予定稼働時間」に、今日は何時間くらい動くか入れます。</li>
+<li>バイクや車のメーターを見る人は、「開始メーター距離」を入れます。</li>
+<li>準備できたら「稼働開始」を押します。</li>
+</ol>
+<p class="note">配達アプリに、すでに今日の件数や売上が表示されている場合は、「稼働開始時のアプリ表示」にその数字を入れてください。その分は今回の稼働から引かれます。</p>
+</section>
+
+<section id="working" class="scene">
+<h2>配達中：件数・売上・距離を更新する</h2>
+<p>配達アプリを見ながら、今の件数と売上を入れます。距離を見る人は、今のメーター距離も入れます。</p>
+<div class="shot"><img src="manual-assets/pace-02-working.png" alt="配達中にペースを確認している画面"></div>
+<p class="caption">例では、2時間で5件、4,100円の状態です。</p>
+<ul>
+<li>「換算時給」は、このままのペースなら時給いくらくらいかを表示します。</li>
+<li>「件数/h」は、1時間あたり何件くらい運べているかです。</li>
+<li>「目標との差」は、目標より上か下かを見るところです。</li>
+</ul>
+<div class="shot"><img src="manual-assets/pace-03-controls.png" alt="配達中の入力ボタン"></div>
+<p class="caption">件数は「+1」「+5」「+10」でも増やせます。間違えた時は「-1」を押します。</p>
+<p>休憩するときは「一時停止」を押します。再開するときは同じ場所のボタンを押します。</p>
+<p>お客様へ連絡したいときは、画面下の「定型文」を押すとスムコピへ移動できます。ペース確認に戻るときは、スムコピ画面下の「ペース」を押します。</p>
+</section>
+
+<section id="correction" class="scene">
+<h2>補正とリセット：数字がずれた時に直す</h2>
+<p>「補正とリセット」は、配達中の表示が実際と合わなくなった時に使います。普段はさわらなくて大丈夫です。</p>
+<h3>経過時間を修正</h3>
+<p>稼働開始ボタンを押し忘れた時や、アプリ上の経過時間と実際に動いた時間がずれた時に使います。</p>
+<p>例：10時から配達していたのに、11時30分に稼働開始を押した場合は、実際の経過時間に合わせて直します。</p>
+<div class="shot"><img src="manual-assets/pace-correction-01-elapsed.png" alt="経過時間を修正する入力欄"></div>
+<h3>稼働開始時のアプリ表示</h3>
+<p>前回の稼働が日またぎで終わり、配達アプリに前回の件数や売上が残っている時に使います。</p>
+<p>ここに開始時点の件数と売上を入れると、その分を今回の実績から引いて計算します。前回分を今回分に混ぜないための入力です。</p>
+<div class="shot"><img src="manual-assets/pace-correction-02-start-display.png" alt="稼働開始時のアプリ表示を入力する欄"></div>
+<h3>4時までの確定値</h3>
+<p>日またぎで稼働していて、配達アプリ側の数字が締められて0に戻った時に使います。</p>
+<p>4時までの件数と売上をここに入れると、0に戻る前の分も今回の実績に足して計算できます。</p>
+<div class="shot"><img src="manual-assets/pace-correction-03-fouram.png" alt="4時までの確定値を入力する欄"></div>
+<p class="note">どれを使えばよいか迷った時は、「押し忘れは経過時間」「前回分を引きたい時は稼働開始時のアプリ表示」「0に戻った前半分を足したい時は4時までの確定値」と覚えると使い分けやすいです。</p>
+</section>
+
+<section id="after" class="scene">
+<h2>配達完了後：終了して結果を残す</h2>
+<p>今日の配達が終わったら、入力した件数・売上・距離が合っているか確認してから「稼働終了」を押します。</p>
+<div class="shot"><img src="manual-assets/pace-04-finished.png" alt="稼働終了後のサマリー画面"></div>
+<ol>
+<li>終了サマリーで、稼働時間、件数、売上、時給、距離を確認します。</li>
+<li>スムレコでもまとめたい場合は「この結果をスムレコに反映」を押します。</li>
+<li>続きで配達する場合は「稼働再開」を押します。</li>
+<li>別の稼働として始めたい場合は「新規稼働開始」を押します。</li>
+</ol>
+</section>
+
+<section id="sumureco" class="scene">
+<h2>スムレコ：1日の結果をまとめて見る</h2>
+<p>スムレコでは、稼働時間、各配達アプリの件数・売上、走行距離を入れて、1日の結果をまとめます。</p>
+<div class="shot"><img src="manual-assets/sumureco-01-input.png" alt="スムレコの入力画面"></div>
+<ol>
+<li>開始時間と終了時間を入れます。</li>
+<li>Uber、出前館、menu など、使った配達アプリの件数と売上を入れます。</li>
+<li>必要ならボーナス、チップ、走行距離も入れます。</li>
+<li>最後に「計算」を押します。</li>
+</ol>
+<div class="shot wide"><img src="manual-assets/sumureco-02-results.png" alt="スムレコの計算結果画面"></div>
+<p class="caption">時給、平均単価、配達ペース、距離まわりの数字がまとめて表示されます。</p>
+<p>結果を残したいときは「画像として保存」を押すと、画面を画像で保存できます。</p>
+</section>
+</main>
+</body>
+</html>
